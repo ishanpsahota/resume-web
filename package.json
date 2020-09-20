@@ -1,0 +1,68 @@
+{
+  "name": "resume-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "vue website",
+  "author": {
+    "name": "Ishan"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build-fe": "vue-cli-service build",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd server && node start.js",
+    "dev": "concurrently \"npm run serve\" \"npm run build\""
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@vue/cli": "^4.5.6",
+    "aos": "^2.3.4",
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.1",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.5",
+    "vue": "^2.6.12",
+    "vue-headful": "^2.1.0",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-e2e-nightwatch": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "chromedriver": "^84.0.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "_id": "resume-web@1.0.0",
+  "bugs": {
+    "url": "https://github.com/ishanpsahota/resume-web/issues"
+  },
+  "homepage": "https://github.com/ishanpsahota/resume-web#readme",
+  "keywords": [
+    "mongo",
+    "express",
+    "vue",
+    "node"
+  ],
+  "license": "ISC",
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishanpsahota/resume-web.git"
+  }
+}
