@@ -114,9 +114,9 @@ AOS.init();
 export default {
   name: 'Home',
   data() {
-	  return {
-		  title: 'Home'
-	  }
+		return {
+			title: 'Home'
+		}
   },
   components: {
 
