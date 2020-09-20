@@ -1,5 +1,6 @@
 <template>
     <div id="login" class="row w-100 m-0 p-0 animate__animated animate__fadeIn">
+        <vue-headful :title=title />       
         <div class="col-12 d-flex hrow">
             <div class="col-6 m-auto bg-white p-4 rounded shadow-lg">
                 <h1 class="display-4 text-center"> Login </h1>
@@ -40,7 +41,8 @@ export default {
             loggingIn: false,
             loggedIn: false,
             loginErr: false,
-            error: null
+            error: null,
+            title:'Login'
         }
     },
     methods: {

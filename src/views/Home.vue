@@ -1,5 +1,6 @@
 <template>
-	<div id="home" class="row w-100 m-0 p-0 animate__animated animate__fadeIn">        
+	<div id="home" class="row w-100 m-0 p-0 animate__animated animate__fadeIn"> 
+		<vue-headful :title=title />       
 		<div class="row p-0 m-0 w-100 hrow d-flex flex-row" id="me">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
 				<h1 class="display-1"> Hi, </h1>
@@ -112,6 +113,11 @@ AOS.init();
 
 export default {
   name: 'Home',
+  data() {
+	  return {
+		  title: 'Home'
+	  }
+  },
   components: {
 
   }
