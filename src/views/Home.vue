@@ -37,7 +37,7 @@
 		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row-reverse" id="do">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-right">
 				<h1 class="display-3"> Have I made anything? </h1>
-				<h2> I have! <br> I've created some websites. </h2>
+				<h2> I have! <br> I've created some websites. <br> <i class="fa fa-angle-right" aria-hidden="true"></i> </h2>
 			</div>
 			<div data-aos="fade-down" class="col-12 col-md-6 m-auto">
 				<img src="../assets/images/home04.png" class="pimg img-fluid my-auto rounded  shadow-lg" usemap="#webs">
@@ -76,7 +76,7 @@
 					<li class="list-group-item bg-warning"> Driving </li>
 					<li class="list-group-item bg-warning"> Reading </li>
 					<li class="list-group-item bg-warning"> Music </li>
-					<li class="list-group-item bg-warning"> Cooking </li>
+					<li class="list-group-item bg-warning"> Cooking, and many more... </li>
 				</ul>
 			</div>
 			<div data-aos="fade-down" class="col-12 col-md-6 m-auto">

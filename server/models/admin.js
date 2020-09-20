@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 
 const bcrypt = require('bcrypt-nodejs');
 
-SALT_WORK_FACTOR = 7;
+const SALT_WORK_FACTOR = 7;
 
-const adminSchema = mongoose.Schema({
+const adminSchema = new mongoose.Schema({
 
     name: {
         type: String
@@ -25,6 +25,11 @@ const adminSchema = mongoose.Schema({
 
     resumeId: {
         type: mongoose.Types.ObjectId
+    },
+
+    siteStatus: {
+        type: String,
+        required: true
     }
 
 })

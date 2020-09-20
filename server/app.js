@@ -1,9 +1,11 @@
 const express = require('express')
-const routes = require('./routes')
 const mongoose = require('mongoose')
-const cors = require('cors')
-const helmet = require('helmet')
+// const path = require('path')
 const bodyParser = require('body-parser')
+const routes = require('./routes')
+const helmet = require('helmet')
+const cors = require('cors')
+
 const app = express()
 
 mongoose.connect(process.env.DATABASE, {
@@ -19,9 +21,10 @@ mongoose.connection.on('open', function()
     console.log('Connection error: ' + err);
 });
 
-app.use(bodyParser.json());
-app.use('/', routes)
 app.use(cors());
+
+app.use(bodyParser.json());
+app.use('/', routes);
 app.use(helmet())
 
-module.exports = app
+module.exports = app;
