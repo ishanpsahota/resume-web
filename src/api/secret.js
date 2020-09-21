@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
-const { exists } = require('../../server/models/admin')
 
 const salt_f = 7
 

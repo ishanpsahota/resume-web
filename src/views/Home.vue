@@ -1,7 +1,7 @@
 <template>
 	<div id="home" class="row w-100 m-0 p-0 animate__animated animate__fadeIn"> 
 		<vue-headful :title=title />       
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row" id="me">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row" id="me">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
 				<h1 class="display-1"> Hi, </h1>
 				<h1> I'm Ishan. </h1>
@@ -10,7 +10,7 @@
 				<img src="../assets/images/home01.jpg" class="pimg img-fluid my-auto rounded shadow-lg">
 			</div>
 		</div>
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row-reverse" id="do">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row-reverse" id="do">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-right">
 				<h1 class="display-3"> What do I do? </h1>
 				<h2> Glad you asked. <br> I'm a 3rd year student in BC, Canada. </h2>
@@ -19,7 +19,7 @@
 				<img src="../assets/images/home02.jpg" class="pimg img-fluid my-auto rounded  shadow-lg">
 			</div>
 		</div>
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row" id="me">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row" id="me">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
 				<h1 class="display-3"> What do I know? </h1>
 				<h6> 
@@ -35,7 +35,7 @@
 				<img src="../assets/images/home03.jpg" class="pimg img-fluid my-auto rounded shadow-lg">
 			</div>
 		</div>
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row-reverse" id="do">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row-reverse" id="do">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-right">
 				<h1 class="display-3"> Have I made anything? </h1>
 				<h2> I have! <br> I've created some websites. <br> <i class="fa fa-angle-right" aria-hidden="true"></i> </h2>
@@ -51,7 +51,7 @@
 				</map>
 			</div>
 		</div>
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row" id="me">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row" id="me">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
 				<h1 class="display-3"> Have I worked anywhere before? </h1>
 				<h2> I have! </h2>
@@ -68,7 +68,7 @@
 				<img src="../assets/images/home05.jpg" class="pimg img-fluid my-auto rounded shadow-lg">
 			</div>
 		</div>
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row-reverse" id="do">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row-reverse" id="do">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-right">
 				<h1 class="display-3"> My Interests? </h1>
 				<h2 class=""> Not one! <br> </h2>
@@ -81,11 +81,11 @@
 				</ul>
 			</div>
 			<div data-aos="fade-down" class="col-12 col-md-6 m-auto">
-				<img src="../assets/images/home06.jpg" class="pimg img-fluid my-auto rounded  shadow-lg" >
+				<img src="../../public/assets/images/resume/home06.jpg" class="pimg img-fluid my-auto rounded  shadow-lg" >
 				
 			</div>
 		</div>
-		<div class="row p-0 m-0 w-100 hrow d-flex flex-row flex-md-row" id="me">
+		<div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row" id="me">
 			<div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
 				<h1 class="display-3"> Anything else? </h1>
 				<h2> Wait for it. </h2>

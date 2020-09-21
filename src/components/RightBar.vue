@@ -21,7 +21,7 @@
         <div class="my-2 p-2">
             <h5> <strong> Quick Links </strong> </h5>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item p-1 social " > <a href="https://family-tree-i-netlify.app.com" class=""> Family Tree Creator </a> </li>
+                <li class="list-group-item p-1 social " > <a href="https://family-tree-i.netlify.app" class=""> Family Tree Creator </a> </li>
                 <li class="list-group-item p-1  social"> <a href="https://ishanpsahota.00webhostapp.com" class=""> Resume Website 1.0 </a> </li>                
                 <li class="list-group-item p-1 social "> <a href="https://insomniacsblogger.herokuapp.com" class=""> Blog Website - ExpressJS </a> </li>
                 <li class="list-group-item p-1 social " > <a href="https://insomniacsblog.000webhostapp.com" class=""> Blog Website - CorePHP Version </a> </li>

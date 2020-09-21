@@ -52,19 +52,19 @@ export default new Vuex.Store({
                 commit('auth_request')
                 axios({url: url + '/login', data: user, method: 'POST' })
                 .then(resp => {
-                  // console.log(resp.data)
+                  // console.log(resp.data.found)
                     if(resp.data.status === 200)
                     {
                         // console.log(resp)
 
-                        var token = cryptoJs.AES.encrypt(resp.data.member.email, 'ishanpsahota@m3ral@wda').toString() 
+                        var token = cryptoJs.AES.encrypt(resp.data.found.email, 'ishanpsahota@m3ral@wda').toString() 
                         token = token.replace(/[^a-zA-Z0-9]/g,'')
 
                         var data = {
                           'token': token,
-                          'name': resp.data.member.name,
-                          'email': resp.data.member.email,
-                          'id': resp.data.member._id,                          
+                          'name': resp.data.found.name,
+                          'email': resp.data.found.email,
+                          'id': resp.data.found._id,                          
                         };
                       
                         // console.log(data)

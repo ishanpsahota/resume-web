@@ -13,10 +13,17 @@
                     </li>
                     <!-- <li class="nav-item">
                         <a :class="'nav-link' + getState('myself')" href="/myself">Myself </a>
-                    </li> -->
-                    <li v-if="loggedIn" class="nav-item">
-                        <a :class="'nav-link' + getState('/logout')" @click="logout()" > Logout <i class="fas fa-sign-out-alt    "></i> </a>
+                    </li> -->                    
+                     <li v-if="loggedIn" class="nav-item">
+                        <a :class="'nav-link' + getState('edit')" href="/edit"> Edit <i class="fas fa-edit    "></i> </a>
                     </li>
+                    <li v-if="loggedIn" class="nav-item">
+                        <a :class="'nav-link' + getState('new')" href="/new" > New Blog <i class="fa fa-plus-circle" aria-hidden="true"></i> </a>
+                    </li>
+                    <li v-if="loggedIn" class="nav-item">
+                        <a :class="'nav-link' + getState('logout')" @click="logout()" > Logout <i class="fas fa-sign-out-alt    "></i> </a>
+                    </li>
+
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -70,7 +77,14 @@ export default {
         }
     },
 
-    beforeMount() {
+    mounted() {
+
+        this.loggedIn = !!this.$store.getters.isLoggedIn
+        // console.log(this.loggedIn)
+
+    },
+
+    beforeUpdate() {
 
         this.loggedIn = !!this.$store.getters.isLoggedIn
 

@@ -35,11 +35,11 @@ const adminSchema = new mongoose.Schema({
 })
 
 adminSchema.statics.authenticate = function (email, password, callback) {
-    var admin = this;
+    var admin = this;    
 
     admin.findOne({ 'email': email })
       .exec(function (err, admin) {
-        if (err) {
+        if (err) {          
           return callback(err)
         } else if (!admin) {
           var err = new Error('admin not found.');

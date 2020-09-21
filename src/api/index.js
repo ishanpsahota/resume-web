@@ -10,7 +10,9 @@ var urls = {
     'getSelf': url + '/getself',
     'shutdown': url + '/togglestate',
     'search': url + '/search',
-    'getState': url + '/getstate'
+    'getState': url + '/getstate',
+    'createBlog': url + '/create',
+    'uploadImg': url + '/upload'
 }
 
 export default {
@@ -62,6 +64,38 @@ export default {
 
                 reject(err)
 
+            })
+
+        })
+
+    },
+
+    createBlog(data) {
+
+        return new Promise((resolve, reject) => {
+
+            axios.post(this.getUrl().createBlog, data)
+            .then(res => {
+                resolve(res)
+            }).catch(err => {
+                reject(err)
+            })
+
+        })
+
+    },
+
+    uploadImg(data) {
+
+        
+
+        return new Promise((resolve, reject) => {
+
+            axios.post(this.getUrl().uploadImg, data, {})
+            .then(res => {
+                resolve(res)
+            }).catch(err => {
+                reject(err)
             })
 
         })

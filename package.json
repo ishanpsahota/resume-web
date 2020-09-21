@@ -13,7 +13,8 @@
     "lint": "vue-cli-service lint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && node start.js",
-    "dev": "concurrently \"npm run serve\" \"npm run start\""
+    "start-be": "cd server && nodemon ./start.js",
+    "dev": "concurrently \"npm run serve\" \"npm run start-be\""
   },
   "main": "index.js",
   "dependencies": {
@@ -27,9 +28,13 @@
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "form-data": "^3.0.0",
+    "formdata": "^0.10.4",
+    "fs": "0.0.1-security",
     "helmet": "^4.1.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.5",
+    "multer": "^1.4.2",
     "vue": "^2.6.12",
     "vue-headful": "^2.1.0",
     "vue-router": "^3.2.0",
