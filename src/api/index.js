@@ -2,8 +2,8 @@ import axios from 'axios'
 
 
 
-var url = `http://localhost:8081`
-// var url = `https://ishanpsahota.herokuapp.com`
+// var url = `http://localhost:8081`
+var url = `https://ishanpsahota.herokuapp.com`
 
 var urls = {
     url: url,
