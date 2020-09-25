@@ -60,8 +60,14 @@ export default {
         getState(active) {
 
             var url = this.$route.path.split("/")
+            // console.log(url)
             
             if(url[2] == null || url[2] == "")
+            {
+                if(url[1] == active) return " text-warning "
+                else return " "
+            }
+            else
             {
                 if(url[1] == active) return " text-warning "
                 else return " "

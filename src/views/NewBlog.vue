@@ -5,26 +5,21 @@
             <h1 class="display-4"> New Blog </h1>
             <!-- <div class="row p-3 w-100"> -->
             <div class="col-12 col-md-8 p-3">
-                <form @submit.prevent="newBlog()" id="blogform" enctype="multipart/form-data">                                       
+                <form @submit.prevent="newBlog()" ref="blogForm" id="blogform" enctype="multipart/form-data">                                       
                     <div class="form-group w-100 border-bottom">
                       <label for="">Blog Title</label>
                       <input type="text" name="btitle" id="btitle" class="form-control" v-model="blogTitle" placeholder="Blog Title here" aria-describedby="helpId">                      
-                    </div>
-                    <div class="form-group w-100 border-bottom">
-                        <label for="">Choose Hero Image</label>
-                        <input type="file" class="form-control-file" accept="image/*"  name="image" @change="setImage($event, 'hero')" id="image" placeholder="Choose Hero Image" aria-describedby="fileHelpId">
-                        <!-- <small id="fileHelpId" class="form-text text-muted">Help text</small> -->
-                    </div>
+                    </div>   
+                    <!-- <div class="form-group">
+                      <label for="image">Hero Image</label>
+                      <input type="file" class="form-control-file" name="image" id="image" @change="setImage($event, 'hero')" placeholder="Choose hero image" aria-describedby="fileHelpId">
+                    
+                    </div>  
                     <div class="form-group">
-                        <button class="btn btn-dark m-1" type="button" v-if="uploadImgbtn" @click="uploadImg('hero')"> Upload Image </button>
-                        <button class="btn btn-dark m-1" type="button" disabled v-if="uploadingImg"> Uploading... </button>
-                        <button class="btn btn-success m-1" type="button" disabled v-if="uploadedImg"> Uploaded! </button>
-                        <button class="btn btn-danger m-1" type="button" disabled v-if="uploadErr"> Error! </button>                                
-                    </div>
-                    <div class="form-group w-100 border-bottom">
                       <label for="">Image Caption</label>
-                      <input type="text" name="caption" id="caption" class="form-control" v-model="heroimg.caption" placeholder="Image Caption Here" aria-describedby="helpId">                      
-                    </div>
+                      <input type="text" name="caption" id="caption" class="form-control" v-model="heroimg.caption" placeholder="Set Image Caption here" aria-describedby="helpId">
+
+                    </div>                -->
                     <p>
                         <button class="btn " type="button" @click="addDiv()"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i> </button>
                         <span class="h2"> {{blocksCount}} </span>
@@ -48,23 +43,23 @@
                             <div class="form-group">
                                 <label :for="'bcontent' + block">Block Content</label>
                                 <textarea :name="'bcontent_' + block" :v-model="'bcontent_' + block" :id="'bcontent_' + block" @change="getBlock($event, 'content')" class="form-control" cols="30" rows="10"></textarea>
-                            </div> 
-                            <div class="form-group">
-                              <label for="">Block Image </label>
-                              <input type="file" class="form-control-file" :name="'bimage_' + block" :id="'bimage_' + block" @change="setImage($event, block)" placeholder="" aria-describedby="fileHelpId">                              
-                            </div>  
-                            <div class="form-group">
-                                <button class="btn btn-dark m-1" type="button" v-if="uploadImgbtn" @click="uploadImg(block)"> Upload Image </button>
-                                <button class="btn btn-dark m-1" type="button" disabled v-if="uploadingImg == block"> Uploading... </button>
-                                <button class="btn btn-success m-1" type="button" disabled v-if="uploadedImg == block"> Uploaded! </button>
-                                <button class="btn btn-danger m-1" type="button" disabled v-if="uploadErr == block"> Error! </button>                                
-                            </div>
+                            </div>                             
                             <button type="button" class="btn btn-primary btn-sm mx-1" @click="saveBlock()"> Save Block </button>
                             <button class="btn btn-danger btn-sm" v-if="blocksCount > 1" type="button" @click="removeDiv()"> Delete Block </button>                         
                         <!-- </div> -->
                     </div>
-                    <button type="submit" class="btn btn-warning m-1">Submit</button>
+                    <button type="submit" v-if="createBlog" class="btn btn-warning m-1">Submit</button>
+                    <button type="button" v-if="creatingBlog" disabled class="btn btn-warning m-1"> <div class="spinner-border text-light"></div> </button>
+                    <button type="submit" v-if="createdBlog" disabled class="btn btn-warning m-1">Created!</button>
+                    <button type="submit" v-if="createBlogErr" disabled class="btn btn-warning m-1">Error!</button>                    
                     <button type="reset" class="btn btn-danger">Reset</button>
+                    <div v-if="createBlogErr" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>Error!</strong> {{error}}
+                    </div>
                 </form>
             </div>
         </div>  
@@ -75,104 +70,44 @@
 
 import crypto from 'crypto-js'
 import services from '../api/index'
-import axios from 'axios'
+
+// import axios from 'axios'
 // import FormData from 'form-data'
 
 export default {
     name: 'NewBlog',
+    components:{
+        
+    },
     data() {
         return {
             title: 'New Blog',
             blocksCount: 1,
-            blogTitle: '',
-            heroimg: {
-                image: '',
-                caption: ''
-            },
+            blogTitle: '',            
             blocks: [],
             blockName: '',
             blockHeading: '',
             blockSub: '',
             blockContent: '',
-            blockImg: '',
-            FILE: null,
+            blockImg: '',   
+            heroimg: {
+                image: null,
+                caption: null
+            },         
             fileName: null,            
             uploadImgbtn: true,
             uploadingImg: null,
             uploadedImg: null,
-            uploadErr: null
+            uploadErr: null,
+            createBlog: true,
+            creatingBlog: false,
+            createdBlog: false,
+            createBlogErr: false,
+            error: null
         }
     },
 
-    methods: {
-
-        getImagePath(image, type)
-        {
-            image = image.split(".");
-            var title = this.blogTitle.split(" ").join("").toLowerCase()
-            var link = '../../public/assets/images/blogs/' + title + '_' + type + '.' + image[1]
-            return link
-        },
-
-        getImageName(image, type) {
-
-            image = image.split(".");
-            var title = this.blogTitle.split(" ").join("").toLowerCase() + "_" + type + '.' + image[1]
-            return title
-        },
-
-        setImage(event, type)
-        {
-
-            if(type == 'hero')
-            {
-                this.heroimg.image = this.getImagePath(event.target.files[0].name, type)    
-                this.FILE = event.target.files[0]           
-                this.fileName = this.getImageName(event.target.files[0].name, type)                        
-            }
-            else
-            {                
-                this.blockImg = this.getImagePath(event.target.files[0].name, type)                
-                this.FILE = event.target.files[0]           
-                this.fileName = this.getImageName(event.target.files[0].name, type)
-                // console.log(this.blocks)
-            }
-
-        },
-
-        uploadImg(type)
-        {
-            this.uploadImgbtn = false
-            this.uploadingImg = type
-        
-            // var imgForm = {
-            //     image: this.FILE,
-            //     name: this.fileName
-            // }
-        
-            // services.uploadImg(imgForm)
-            // .then(res => {
-            //     this.uploadingImg = null
-            //     this.uploadedImg = type
-            //     console.log(res)
-            // }).catch(err => {
-            //     this.uploadingImg = type
-            //     this.uploadedImg = type
-            //     console.log(err)
-            // })
-
-            axios.post(services.getUrl().uploadImg, this.FILE)
-            .then(res => {
-                this.uploadingImg = null
-                this.uploadedImg = type
-                console.log(res)
-            }).catch(err => {
-                this.uploadingImg = type
-                this.uploadedImg = type
-                console.log(err)
-            })
-            
-        },
+    methods: {        
 
         getBlock(event, type) 
         {
@@ -196,6 +131,23 @@ export default {
 
         },
 
+        setImage(event, type)
+        {
+            // var image = new FormData()
+
+            // image.append('file', event.target.files[0])
+
+            if(type == 'hero')
+            {
+                this.heroimg.image = event.target.files[0]
+            }
+
+            if(type === Number)
+            {
+                this.blockImg = event.target.files[0]
+            }
+        },
+
         saveBlock() 
         {            
             var block = {
@@ -212,6 +164,9 @@ export default {
 
         newBlog() {
 
+            this.createBlog = false
+            this.creatingBlog = true
+
             var rid = crypto.AES.encrypt(this.blogTitle, 'ishanpsahota@m3ral@wda').toString();
             rid = rid.replace(/[^a-zA-Z0-9]/g,'')
             
@@ -219,7 +174,7 @@ export default {
 
             var blog = {
                 title: this.blogTitle,
-                date: Date,
+                date: new Date(Date.now()),
                 heroimg: {
                     image: this.heroimg.image,
                     caption: this.heroimg.caption
@@ -229,16 +184,69 @@ export default {
                 hits: 0,
                 randomId: rid
             }
-
-            console.log(blog)
+                        
+            console.log(blog)            
             
-            // services.createBlog(blog)
-            // .then(res => {
-            //     console.log(res)
-            // }).catch(err => {
-            //     console.log(err)
-            // })
+            services.createBlog(blog)
+            .then(res => {
 
+                console.log(res)
+                
+                if(res.status == 200)
+                {
+                    if(res.data.status === 200)
+                    {
+                        this.creatingBlog = false;
+                        this.createdBlog = true
+
+                        setTimeout(() => {
+                            this.$router.push('/edit/blog/' + res.data.blog)
+                        }, 2500);
+                    }
+                    else
+                    {
+                        this.creatingBlog = false
+                        this.createBlogErr = true
+
+                        if(res.data.status == 400)
+                        {
+                            this.error = "Unauthorized"
+                        }
+
+                        if(res.data.status == 401)
+                        {
+                            this.error = 'Unknown error'
+                        }
+
+                        if(res.data.status == 409)
+                        {
+                            this.errr = 'Similar titled blog may exist already!'
+                        }                        
+
+                        setTimeout(() => {
+                            this.createBlogErr = false
+                            this.createBlog = true
+                            this.error = null
+                        }, 2500);
+
+                    }
+                    
+                }
+
+            }).catch(err => {
+                if(err)
+                {
+                    this.creatingBlog = false
+                    this.createBlogErr = true
+                    this.error = 'Error in creating blog'
+
+                    setTimeout(() => {
+                        this.createBlogErr = false
+                        this.createBlog = true
+                        this.error = null
+                    }, 2500);
+                }
+            })
 
         },
 
@@ -249,7 +257,14 @@ export default {
 
         removeDiv()
         {
-            this.blocksCount = this.blocksCount - 1
+            if(this.blocksCount > 1)
+            {
+                this.blocksCount = this.blocksCount - 1
+                this.blocks.length = this.blocksCount;
+            }
+            
+            // console.log(this.blocks)
+            
         }
 
     }
@@ -257,5 +272,10 @@ export default {
 </script>
 
 <style>
+
+#pictureInput
+{
+    z-index: -10;
+}
 
 </style>

@@ -7,6 +7,9 @@ const multer = require('multer')
 const routes = express.Router()  
 
 const Admin = mongoose.model('admin')
+const Blog = mongoose.model('blog')
+
+const CryptoJS = require('crypto-js')
 
 
 routes.get('/', function(req, res) {
@@ -132,13 +135,131 @@ routes.post('/login', function(req, res) {
 
 routes.post('/create', function(req, res) {
 
-    console.log(req.body)
+    if(!req.body) return res.sendStatus(401)
+    else
+    {
+        // console.log(req.body)
+        var blog = req.body
+
+        Blog.findOne({title: req.body.blogTitle}).exec(function(err, blogFound) {
+
+            if(err) return res.sendStatus(401)
+            if(blogFound) return res.sendStatus(409)
+            if(!blogFound)
+            {
+                Blog.create(blog, function(err, blogMade) {
+
+                    if(err) {
+                        return res.send({
+                            status: 400,
+                            error: 'Error'
+                        })
+                    }
+        
+                    if(!blogMade) {
+                        return res.send({
+                            status: 401,
+                            error: 'Cannot create blog'
+                        })
+                    }
+        
+                    if(blogMade) {
+                        return res.send({
+                            status: 200,
+                            blog: blogMade.title.split(" ").join("-").toLowerCase()
+                        })
+                    }
+        
+                })      
+            }
+
+        })        
+
+    }
+
+})
+
+routes.get('/getblogs', function(req, res) {
+
+    var email = 'ishanprasad.sahota@gmail.com'
+    
+    Admin.findOne({email: email}).exec(function(err, adminFound) {
+
+        if(err) 
+        {            
+            return res.send({
+                status: 401,
+                msg: 'ERR'
+            })
+        }
+        if(!adminFound) 
+        {
+            return res.send({
+                status: 400,
+                msg: 'A Not Found'
+            })
+        }
+        if(adminFound)
+        {
+            console.log('f')
+            Blog.find().exec(function(err, blogs) {
+
+                if(err) {
+                    return res.send({
+                        status: 401,
+                        msg: 'BERR'
+                    })
+                }
+                if(!blogs) {
+                    return res.send({
+                        status: 400,
+                        msg: 'BNF'
+                    })
+                }
+                if(blogs)
+                {
+                    console.log('BF')
+                    return res.send({
+                        status: 200,
+                        blogs
+                    })
+                }
+
+            })
+        }
+
+    })
+
+})
+
+routes.get('/editblog/:title', function(req, res) {
+
+    if(!req.params.title) return res.sendStatus(401)
+    else
+    {
+        var title = req.params.title
+        title = title.split("-").join(" ")
+
+        Blog.findOne({randomId: req.params.randomId}).exec(function(err, blogFound) {
+            
+            if(err) return res.sendStatus(400)
+            if(!blogFound) return res.sendStatus(401)
+            if(blogFound)
+            {
+                return blogFound
+            }
+
+        })
+    }
 
 })
 
 routes.post('/upload', function(req, res) {
 
     console.log(req.files)
+    console.log(req.file)
+    // console.log("req")
+    // console.log(req)
 
 })
 

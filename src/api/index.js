@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-// var url = `http://localhost:8081`
-var url = `https://ishanpsahota.herokuapp.com`
+
+
+var url = `http://localhost:8081`
+// var url = `https://ishanpsahota.herokuapp.com`
 
 var urls = {
     url: url,
@@ -12,7 +14,7 @@ var urls = {
     'shutdown': url + '/togglestate',
     'search': url + '/search',
     'getState': url + '/getstate',
-    'createBlog': url + '/create',
+    'createBlog': url + '/create',    
     'uploadImg': url + '/upload'
 }
 
@@ -73,6 +75,12 @@ export default {
 
     createBlog(data) {
 
+        // const config = {
+        //     headers: {
+        //       'content-type': 'multipart/form-data'
+        //     }
+        // };
+
         return new Promise((resolve, reject) => {
 
             axios.post(this.getUrl().createBlog, data)
@@ -86,13 +94,11 @@ export default {
 
     },
 
-    uploadImg(data) {
-
-        
-
+    getBlogs()
+    {
         return new Promise((resolve, reject) => {
 
-            axios.post(this.getUrl().uploadImg, data, {})
+            axios.get(this.getUrl().getBlogs)
             .then(res => {
                 resolve(res)
             }).catch(err => {
@@ -100,6 +106,17 @@ export default {
             })
 
         })
+    },
+
+    uploadImg(data) {
+
+        // const config = {
+        //     headers: {
+        //       'content-type': 'multipart/form-data'
+        //     }
+        //   };
+        console.log("here")
+        console.log(data)
 
     }
 

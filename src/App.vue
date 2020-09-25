@@ -50,7 +50,7 @@ export default {
 	},
 	data() {
 		return {
-			state: null,
+			state: 'activenow',
 			loading: false
 		}
 	},
@@ -93,14 +93,30 @@ export default {
 					{
 						this.loading = true
 							
-							setTimeout(() => {
+						setTimeout(() => {
 
-								this.loading = false
-								this.state = 'notActive'
+							this.loading = false
+							this.state = 'notActive'
 
-							}, 1500);
+						}, 1500);
 					}
 				}				
+
+			}).catch(err => {
+				if(err)
+				{
+					this.loading = true
+
+					setTimeout(() => {
+						
+						this.state = 'notActive'
+						this.loading = false
+					
+					}, 2500);
+
+					
+
+				}
 
 			})
 
@@ -110,7 +126,7 @@ export default {
 
 	mounted() {
 
-		this.getState()
+		// this.getState()
 	}
 }
 </script>

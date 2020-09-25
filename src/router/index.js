@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Edit from '../views/Edit.vue'
 import Blogs from '../views/Blogs.vue'
 import NewBlog from '../views/NewBlog.vue'
+import ViewBlog from '../views/ViewBlog.vue'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -40,6 +41,11 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/blog',
+    name: 'EditBlog',
+    component: ViewBlog
   }
 ]
 
