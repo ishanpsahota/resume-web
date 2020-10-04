@@ -1,266 +1,195 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt-nodejs')
+
 const fs = require('fs')
 const multer = require('multer')
 
+const cryptoJs = require('crypto-js')
+
+// cloudinary
+const cloudinary = require('cloudinary').v2;
+const cConfig = require('../config/cloudinary')
+
 const routes = express.Router()  
 
-const Admin = mongoose.model('admin')
-const Blog = mongoose.model('blog')
+// const Admin = mongoose.model('admin')
+// const Blog = mongoose.model('blog')
 
-const CryptoJS = require('crypto-js')
+// controller
+const adminController = require('../config/adminController')
+const blogResumeController = require('../config/BlogResumeController')
+
+// auth middleware
+const auth = require('../auth/auth')
+
+// multer
+const blogStorage = multer.diskStorage({
+
+    destination: '../dist/assets/images/blogs',
+    filename: function(req, file, callback)
+    {
+        const ext = file.mimetype.split("/")[1]
+        const name = file.originalname + '_' + req.userData._id + '.' + ext
+
+        if(!name) return callback('not able to get name')
+        else callback(null, name)
+    }
+
+})
+
+const uploadBlog = multer({storage: blogStorage, limits: {fileSize: 50000000} });
 
 
+const resumegStorage = multer.diskStorage({
+
+    destination: '../dist/assets/images/resume',
+    filename: function(req, file, callback)
+    {
+        const ext = file.mimetype.split("/")[1]
+        const name = file.originalname + '_' + req.userData._id + '.' + ext
+
+        if(!name) return callback('not able to get name')
+        else callback(null, name)
+    }
+
+})
+
+const uploadResume = multer({storage: resumegStorage, limits: {fileSize: 50000000} });
+
+// publicid
+function getPublicId(name)
+{
+    const start = Math.floor(Math.random() * 10)
+
+    var id = cryptoJs.AES.encrypt(name, 'llth3b00k$g03sh3r3').toString();
+    id = cryptoJs.AES.encrypt(id, 'llth3b00k$g03sh3r3').toString();
+    id = id.replace(/[^a-zA-Z0-9]/g,'')
+
+    id = id.substr(start, 10);
+
+    console.log(id)
+
+    return id
+
+}
+
+// routes
 routes.get('/', function(req, res) {
 
-    res.send("OK")
+    res.send("Hey There Intruder")
 
 })
 
-routes.get('/getstate', function(req, res) {
+routes.get('/getstate', adminController.getStatus );
 
-    Admin.findOne({ }, function(err, webStatus) {
+routes.post('/login', adminController.loginAdmin);
 
-        if(err) 
-        {
-            return res.send({
-                status: 400,
-                error: "ERROR IN GETTING STATUS"
-            })
+// routes.post('/addmaster', adminController.registerAdmin);
+
+routes.post('/create', auth, blogResumeController.createBlog);
+
+routes.get('/getblogs', blogResumeController.getBlogs);
+
+routes.get('/getblogs/:blogid', blogResumeController.getBlog);
+
+routes.post('/update/blog/delete', auth, blogResumeController.deleteBlog);
+
+routes.post('/update/blog/show', auth, blogResumeController.showBlog);
+
+// routes.get('/editblog/:blogid', blogResumeController.getBlog);
+
+routes.post('/upload/blog', auth, uploadBlog.single('image'), function(req, res) {
+
+    cloudinary.config({
+        cConfig
+    });
+
+    if(!req.file.path) return res.status(401).json({err: 'Error uploading picture'})
+    if(req.file.path) {
+        
+        if(fs.existsSync(req.file.path)) 
+        { 
+            console.log('file found & uploaded'); 
+
+            console.log(req.file)
+
+            cloudinary.uploader.upload(req.file.path, {
+
+                public_id: 'blogs/' + getPublicId(req.file.originalname),
+        
+                }, function(err, image) {
+        
+                    if(err) { console.log('ce'); console.log(err); return res.status(400).json({err: 'File Uploaded x1 but unknown error'})}
+                    if(!image) { console.log('ni'); return res.status(404).json({err: 'File Uploaded x1 but cloud error'})}
+                    if(image) 
+                    {
+                        console.log('here')
+                        console.log(image)
+
+                        fs.unlink(req.file.path, function(error) {
+
+                            if(error) return res.status(400).json({err: 'File Uploaded x2 but delete error'})
+                            else { console.log('file deleted & uploaded x2'); return res.status(200).json({msg: 'File Uploaded & Deleted Successfully', path: image.url})}
+                        })
+
+                    }
+            });
+
         }
-
-        if(!webStatus)
-        {
-            return res.send({
-                status: 401,
-                error: "DOESN'T EXISTS"
-            })
-        }
-
-        if(webStatus)
-        {
-            return res.send({
-                status: 200,
-                msg: webStatus.toJSON(),
-                state: webStatus.toJSON().siteStatus
-            })
-        }
-
-    })
-
+        else return res.status(404).json({err: 'Picture not found!'})
+    }
 })
 
-routes.post('/login', function(req, res) {
+// resume links
 
-    if(!req.body.email || !req.body.password) return res.sendStatus(401)
-    else
-    {
-        // console.log(req.body)
-        Admin.authenticate(req.body.email, req.body.password, function(error, found)
-        {
-            console.log("exp-rtr-lgn-dng")
-            if(error) 
-            {
-                res.send({
-                    success: false,
-                    error: error,
-                    status: 500
-                })
-            }
-            else if(!found)
-            {
-                res.send({
-                    success: false,
-                    error: "Not found",
-                    status: 400
-                })
-            }
-            else if(found)
-            {                
-                // console.log(found)
-                res.send({
-                    success: true,
-                    found,
-                    status: 200
-                })
-            }
-            else res.sendStatus(400)
-        });
+routes.get('/getresume', blogResumeController.getResume);
+
+routes.post('/createresume', auth, blogResumeController.createResume);
+
+routes.post('/update/resume', auth, blogResumeController.updateResume);
+
+routes.post('/upload/resume', auth, uploadResume.single('image'), function(req, res) {
+
+    cloudinary.config({
+        cConfig
+    });
+
+    if(!req.file.path) return res.status(401).json({err: 'Error uploading picture'})
+    if(req.file.path) {
+        
+        if(fs.existsSync(req.file.path)) 
+        { 
+            console.log('file found & uploaded'); 
+
+            console.log(req.file)
+
+            cloudinary.uploader.upload(req.file.path, {
+
+                public_id: 'resume/' + getPublicId(req.file.originalname),
+        
+                }, function(err, image) {
+        
+                    if(err) { console.log('ce'); console.log(err); return res.status(400).json({err: 'File Uploaded x1 but unknown error'})}
+                    if(!image) { console.log('ni'); return res.status(404).json({err: 'File Uploaded x1 but cloud error'})}
+                    if(image) 
+                    {
+                        console.log('here')
+                        console.log(image)
+
+                        fs.unlink(req.file.path, function(error) {
+
+                            if(error) return res.status(400).json({err: 'File Uploaded x2 but delete error'})
+                            else { console.log('file deleted & uploaded x2'); return res.status(200).json({msg: 'File Uploaded & Deleted Successfully', path: image.url})}
+                        })
+
+                    }
+            });
+
+        }
+        else return res.status(404).json({err: 'Picture not found!'})
     }
 
-})
+} )
 
-// routes.post('/addmaster', function(req, res) {
-
-//     var pass = 'N!k@lL@wd3'
-
-//     bcrypt.genSalt(7, function(err, salt) {
-
-//         if(err) console.log(err)
-//         if(!salt) console.log("no salt")
-//         if(salt)
-//         {
-//             console.log(salt)
-//             bcrypt.hash(pass, salt, null, function(err, password) {
-//                 if(err) console.log(err)
-//                 if(!password) console.log("ERROR IN PASS");
-//                 if(password) 
-//                 {   
-//                     var admin = {
-//                         name: 'Ishan Prasad',
-//                         email: 'ishanprasad.sahota@gmail.com',
-//                         password: pass,
-//                         username: 'ishanprasadsahota',
-//                         resumeId: null,
-//                         siteStatus: 'activenow'
-//                     }
-                
-//                     console.log(admin)
-                
-//                     Admin.create(admin, function(err, done) {
-                        
-//                         if(err) return res.send(err)
-//                         if(!done) return res.send("IDK")
-//                         if(done) return res.send(done)
-                
-//                     }) 
-//                 }
-//             })
-//         }
-
-//     })
-
-// })
-
-routes.post('/create', function(req, res) {
-
-    if(!req.body) return res.sendStatus(401)
-    else
-    {
-        // console.log(req.body)
-        var blog = req.body
-
-        Blog.findOne({title: req.body.blogTitle}).exec(function(err, blogFound) {
-
-            if(err) return res.sendStatus(401)
-            if(blogFound) return res.sendStatus(409)
-            if(!blogFound)
-            {
-                Blog.create(blog, function(err, blogMade) {
-
-                    if(err) {
-                        return res.send({
-                            status: 400,
-                            error: 'Error'
-                        })
-                    }
-        
-                    if(!blogMade) {
-                        return res.send({
-                            status: 401,
-                            error: 'Cannot create blog'
-                        })
-                    }
-        
-                    if(blogMade) {
-                        return res.send({
-                            status: 200,
-                            blog: blogMade.title.split(" ").join("-").toLowerCase()
-                        })
-                    }
-        
-                })      
-            }
-
-        })        
-
-    }
-
-})
-
-routes.get('/getblogs', function(req, res) {
-
-    var email = 'ishanprasad.sahota@gmail.com'
-    
-    Admin.findOne({email: email}).exec(function(err, adminFound) {
-
-        if(err) 
-        {            
-            return res.send({
-                status: 401,
-                msg: 'ERR'
-            })
-        }
-        if(!adminFound) 
-        {
-            return res.send({
-                status: 400,
-                msg: 'A Not Found'
-            })
-        }
-        if(adminFound)
-        {
-            console.log('f')
-            Blog.find().exec(function(err, blogs) {
-
-                if(err) {
-                    return res.send({
-                        status: 401,
-                        msg: 'BERR'
-                    })
-                }
-                if(!blogs) {
-                    return res.send({
-                        status: 400,
-                        msg: 'BNF'
-                    })
-                }
-                if(blogs)
-                {
-                    console.log('BF')
-                    return res.send({
-                        status: 200,
-                        blogs
-                    })
-                }
-
-            })
-        }
-
-    })
-
-})
-
-routes.get('/editblog/:title', function(req, res) {
-
-    if(!req.params.title) return res.sendStatus(401)
-    else
-    {
-        var title = req.params.title
-        title = title.split("-").join(" ")
-
-        Blog.findOne({randomId: req.params.randomId}).exec(function(err, blogFound) {
-            
-            if(err) return res.sendStatus(400)
-            if(!blogFound) return res.sendStatus(401)
-            if(blogFound)
-            {
-                return blogFound
-            }
-
-        })
-    }
-
-})
-
-routes.post('/upload', function(req, res) {
-
-    console.log(req.files)
-    console.log(req.file)
-    // console.log("req")
-    // console.log(req)
-
-})
 
 module.exports = routes

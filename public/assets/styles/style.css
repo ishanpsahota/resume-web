@@ -21,6 +21,62 @@ body
     animation: txt 2.5s linear infinite;    
 }
 
+.text-theme
+{
+    color: #24305e !important;
+}
+
+.bg-theme
+{
+    background-color: #24305e !important;
+    color: #fff;
+}
+
+.bg-theme:hover
+{
+    color: #f64c72 !important;
+}
+
+.bg-theme-g 
+{
+    /* background: rgb(36,37,130) !important; */
+    background: linear-gradient(126deg, rgba(36,37,130,1) 0%, rgba(85,61,103,1) 20%, rgba(246,76,114,1) 40%, rgba(153,115,142,1) 60%, rgba(47,47,162,1) 80%) !important; 
+    background-size: 400% 400% !important;
+    animation: bg-g 15s ease infinite !important;
+}
+
+@keyframes bg-g
+{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.bg-theme-g2 {
+    background: linear-gradient(314deg, #242582, #553d67, #f64c72, #99738e, #2f2fa2);
+    background-size: 1000% 1000%;
+
+    -webkit-animation: bg-theme-g 37s ease infinite;
+    -moz-animation: bg-theme-g 37s ease infinite;
+    animation: bg-theme-g 37s ease infinite;
+}
+
+@-webkit-keyframes bg-theme-g {
+    0%{background-position:0% 73%}
+    50%{background-position:100% 28%}
+    100%{background-position:0% 73%}
+}
+@-moz-keyframes bg-theme-g {
+    0%{background-position:0% 73%}
+    50%{background-position:100% 28%}
+    100%{background-position:0% 73%}
+}
+@keyframes bg-theme-g {
+    0%{background-position:0% 73%}
+    50%{background-position:100% 28%}
+    100%{background-position:0% 73%}
+}
+
 .pimg
 {
     max-height: 50vh;
@@ -50,4 +106,19 @@ body
     {
         height: 10vh;
     }
+}
+
+#footer
+{
+    background: url('../images//illus//footer.svg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 25vh;
+}
+
+#nav
+{
+    z-index: 9999;
 }

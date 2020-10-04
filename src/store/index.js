@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import services from '../api/index'
-import cryptoJs from 'crypto-js'
+import api from '../api/index'
+import jwt from 'jsonwebtoken'
 
-// function getToken() {
-//   return crypto.randomBytes(64).toString('hex');
-// }
 
-var url = services.getUrl().url;
+var url = api.getUrl().url;
 
 Vue.use(Vuex)
 
@@ -19,130 +16,83 @@ axios.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 export default new Vuex.Store({
     state: {
           status: '',
-          token: localStorage.getItem('token') || '',
-          name : '',
-          email: '',
-          id: ''
+          token: localStorage.getItem('token') || '',         
+          rights: localStorage.getItem('rights'),
+          whoami: localStorage.getItem('whoami')
     },
     mutations: {
         auth_request(state){
             state.status = 'loading'
           },
-        auth_success(state, token, name, email, id){
-            state.status = 'success'
-            state.token = token
-            state.name = name,
-            state.email = email,
-            state.id = id
+        auth_success(state, token, whoami){
+            state.status = 'success',
+            state.token = token,                      
+            state.whoami = whoami            
           },
-          auth_error(state){
+        auth_error(state){
             state.status = 'error'
           },
-          logout(state){
-            state.status = ''
+        logout(state){
+            state.status = '',
             state.token = '',
-            state.email = '',
-            state.name = '',
-            state.id = ''
+            state.whoami = ''            
           }
     },
     actions: {
-          login({commit}, user){
+          login({commit}, user){         
+
             return new Promise((resolve, reject) => {
                 commit('auth_request')
                 axios({url: url + '/login', data: user, method: 'POST' })
                 .then(resp => {
-                  // console.log(resp.data.found)
-                    if(resp.data.status === 200)
-                    {
-                        // console.log(resp)
+                    
+                    // console.log(resp)
+                    
+                    if(resp.status === 200 || resp.status === 201)
+                    {                        
+                        var token = resp.data.token                                                                      
+                        var decoded = jwt.decode(token, 'secret')
+                        var whoami = decoded.whoami;
 
-                        var token = cryptoJs.AES.encrypt(resp.data.found.email, 'ishanpsahota@m3ral@wda').toString() 
-                        token = token.replace(/[^a-zA-Z0-9]/g,'')
-
-                        var data = {
-                          'token': token,
-                          'name': resp.data.found.name,
-                          'email': resp.data.found.email,
-                          'id': resp.data.found._id,                          
-                        };
-                      
-                        // console.log(data)
-
-                        localStorage.setItem('token', data.token);
-                        localStorage.setItem('name',  data.name);
-                        localStorage.setItem('email',  data.email);
-                        localStorage.setItem('id', data.id);  
-
-                        // Add the following line:
-                        // axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;                        
-                        commit('auth_success', data.token, data.name, data.email, data.id);
+                        localStorage.setItem('token', token);                         
+                        localStorage.setItem('whoami', whoami)
+                        
+                        // console.log(localStorage.getItem('token'))                        
+                        // console.log(localStorage.getItem('whoami'))
+                        
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;                        
+                        // commit('auth_success', token, status, rights);
+                        commit('auth_success', token, whoami );
                         resolve(resp);
                     }
-                    else reject(resp)
-                    
+                    else reject(resp)                    
                 })
                 .catch(err => {
+                   
                     commit('auth_error')
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('name');
-                    localStorage.removeItem('email');
-                    localStorage.removeItem('id')
+                    localStorage.removeItem('token');                                     
+                    localStorage.removeItem('whoami');                                                       
                     reject(err)
                 })
             })
         },
-        register({commit}, user){
+        logout({commit}){
             return new Promise((resolve, reject) => {
-                commit('auth_request')
-                axios({url: url + '/users/create', data: user, method: 'POST' })
-                .then(resp => {
-                    if(resp.status === 200)
+                    commit('logout')
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('whoami');                       
+                    resolve()
+                    if(!resolve())
                     {
-                        commit('auth_success', null, null, null);
+                        reject();
                     }
-                    // const token = resp.data.access_token
-                    // localStorage.setItem('token', token)
-                    // const user = resp.data.user
-                    
-                    // Add the following line:
-                    // axios.defaults.headers.common['Authorization'] = token
-                    // commit('auth_success', token, user)
-                    // commit('auth_success', token)
-                    resolve(resp)
-                    if(resp.status != 200)
-                    {
-                        return resp.status
-                    }
-                })
-                .catch(err => {
-                    commit('auth_error', err)
-                    // localStorage.removeItem('token')
-                    reject(err)
-                })
-            })
-        },
-          logout({commit}){
-            return new Promise((resolve, reject) => {
-                  commit('logout')
-                  localStorage.removeItem('token')
-                  localStorage.removeItem('name')
-                  localStorage.removeItem('email')
-                  localStorage.removeItem('id')                  
-                  resolve()
-                  if(!resolve())
-                  {
-                      reject();
-                  }
             })
           },
     },
     getters : {
       isLoggedIn: state => !!state.token,
-      authStatus: state => state.status,
-      name: state => state.name,
-      email: state => state.email,
-      userToken: state => state.token,
-      id: state => state.id
+      authStatus: state => state.status,     
+      userToken: state => state.token,            
+      whoami: state => state.whoami      
     }
 })

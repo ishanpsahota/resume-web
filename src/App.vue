@@ -1,5 +1,5 @@
 <template>
-	<div id="app" class="container-fluid p-0 m-0">
+	<div ref="app" id="app" class="container-fluid p-0 m-0">
 		<div v-if="state == 'activenow'" class="row p-0 w-100 m-auto bg-white">
 			<div class="col-md-10 col-12 mx-auto w-100">				
 				<div class="row p-0">
@@ -10,7 +10,7 @@
 					<div class="col-md-10 px-3 py-2 col-12">						
 						<router-view />
 					</div>
-					<div class="col-md-2 py-3 d-md-inline d-none col-12">
+					<div class="col-md-2 py-3 d-lg-block d-none col-12">
 						<RightBar />
 					</div>
 				</div>
@@ -37,6 +37,9 @@ import Top from './components/Top'
 import Shutdown from './views/Shutdown'
 import Loader from './views/Loader'
 import services from './api/index'
+// import $ from 'jquery'
+// import  {tooltip} from './api/tooltip'
+// import './api/tooltip'
 
 export default {
 	name: 'App',
@@ -120,13 +123,19 @@ export default {
 
 			})
 
-		}
+		},
+
+		// tooltip()
+		// {
+		// 	$('[data-toggle="tooltip"]').tooltip();
+		// }
 
 	},
 
 	mounted() {
 
 		// this.getState()
+		// this.tooltip()
 	}
 }
 </script>

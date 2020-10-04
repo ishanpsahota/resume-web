@@ -1,33 +1,30 @@
 <template>
-    <div id="newlog" class="row w-100 m-0 p-0">
+    <div id="newlog" class="row border-bottom w-100 m-0 p-0">
         <vue-headful :title="title" />
-        <div class="col-12 w-100 m-0 p-0">
-            <h1 class="display-4"> New Blog </h1>
-            <!-- <div class="row p-3 w-100"> -->
+        <div class="col-12 w-100  m-0 p-0">
+            <h1 class="display-4"> New Blog </h1>            
             <div class="col-12 col-md-8 p-3">
                 <form @submit.prevent="newBlog()" ref="blogForm" id="blogform" enctype="multipart/form-data">                                       
                     <div class="form-group w-100 border-bottom">
-                      <label for="">Blog Title</label>
+                      <label for=""> <strong> Blog Title </strong>  </label>
                       <input type="text" name="btitle" id="btitle" class="form-control" v-model="blogTitle" placeholder="Blog Title here" aria-describedby="helpId">                      
-                    </div>   
-                    <!-- <div class="form-group">
-                      <label for="image">Hero Image</label>
-                      <input type="file" class="form-control-file" name="image" id="image" @change="setImage($event, 'hero')" placeholder="Choose hero image" aria-describedby="fileHelpId">
-                    
-                    </div>  
+                    </div> 
                     <div class="form-group">
-                      <label for="">Image Caption</label>
-                      <input type="text" name="caption" id="caption" class="form-control" v-model="heroimg.caption" placeholder="Set Image Caption here" aria-describedby="helpId">
-
-                    </div>                -->
+                        <label for="heroimg_img" > <strong> Hero Image </strong> </label>
+                        <input type="file" accept="image/*" class="form-control-file" @change="setImage($event, 'hero')"  name="heroimg_img" id="heroimg_img" ref="heroimg_image" placeholder="Choose hero image">
+                        <input type="text" class="form-control my-2" name="heroimg_cap" id="heroimg_cap" v-model="heroimg.caption" placeholder="Image Caption">
+                        <button class="btn my-2 bg-theme" v-if="load.heroimg" type="button" :disabled="!heroimg.image || !heroimg.caption || !blogTitle" @click="uploadImg('hero')"> Upload Image </button>
+                        <button type="button" v-if="loading.heroimg" disabled class="btn btn-warning m-1"> <div class="spinner-border text-light"></div> </button>
+                        <button type="button" v-if="loaded.heroimg" disabled class="btn btn-warning m-1">Created!</button>
+                        <button type="button" v-if="error.heroimg" disabled class="btn btn-warning m-1">Error!</button>                    
+                    </div>
                     <p>
                         <button class="btn " type="button" @click="addDiv()"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i> </button>
                         <span class="h2"> {{blocksCount}} </span>
                         <button class="btn " v-if="blocksCount > 1" type="button" @click="removeDiv()"> <i class="fa fa-minus-circle fa-3x" aria-hidden="true"></i> </button>
                     </p>                    
                     <div class="my-3" v-for="(block, i) in blocksCount" :key="i">
-                        <strong> Block #{{block}} </strong>
-                        <!-- <div class="row"> -->
+                        <strong> Block #{{block}} </strong>                        
                             <div class="form-group">
                                 <label :for="'bname_' + block">Block Name</label>
                                 <input type="text" :name="'bname_' + block" :id="'bname_' + block" :v-model="'bname_' + block" @change="getBlock($event, 'name')" class="form-control" :placeholder="'Block #' + block + ' name here'" aria-describedby="helpId">                      
@@ -43,17 +40,24 @@
                             <div class="form-group">
                                 <label :for="'bcontent' + block">Block Content</label>
                                 <textarea :name="'bcontent_' + block" :v-model="'bcontent_' + block" :id="'bcontent_' + block" @change="getBlock($event, 'content')" class="form-control" cols="30" rows="10"></textarea>
-                            </div>                             
+                            </div>    
+                            <div class="form-group">
+                                <label :for="'block_' + block" > <strong> Block #{{block}} Image </strong> </label>
+                                <input type="file" accept="image/*" class="form-control-file" @change="setImage($event, 'block_' + block)"  :name="'block_' + block" :id="'block_' + block" :ref="'block_' + block" :placeholder="'Choose block #' + block + ' image'">                                
+                                <button class="btn my-2 bg-theme" v-if="load.image" type="button" :disabled="!blockImg || !blockHeading" @click="uploadImg(block)"> Upload Image </button>
+                                <button type="button" v-if="loading.image" disabled class="btn btn-warning m-1"> <div class="spinner-border text-light"></div> </button>
+                                <button type="button" v-if="loaded.image" disabled class="btn btn-warning m-1">Created!</button>
+                                <button type="button" v-if="error.image" disabled class="btn btn-warning m-1">Error!</button>                    
+                            </div>                         
                             <button type="button" class="btn btn-primary btn-sm mx-1" @click="saveBlock()"> Save Block </button>
-                            <button class="btn btn-danger btn-sm" v-if="blocksCount > 1" type="button" @click="removeDiv()"> Delete Block </button>                         
-                        <!-- </div> -->
+                            <button class="btn btn-danger btn-sm" v-if="blocksCount > 1" type="button" @click="removeDiv()"> Delete Block </button>                                                 
                     </div>
-                    <button type="submit" v-if="createBlog" class="btn btn-warning m-1">Submit</button>
-                    <button type="button" v-if="creatingBlog" disabled class="btn btn-warning m-1"> <div class="spinner-border text-light"></div> </button>
-                    <button type="submit" v-if="createdBlog" disabled class="btn btn-warning m-1">Created!</button>
-                    <button type="submit" v-if="createBlogErr" disabled class="btn btn-warning m-1">Error!</button>                    
+                    <button type="submit" v-if="load.blog" class="btn btn-warning m-1">Submit</button>
+                    <button type="button" v-if="loading.blog" disabled class="btn btn-warning m-1"> <div class="spinner-border text-light"></div> </button>
+                    <button type="submit" v-if="loaded.blog" disabled class="btn btn-warning m-1">Created!</button>
+                    <button type="submit" v-if="error.blog" disabled class="btn btn-warning m-1">Error!</button>                    
                     <button type="reset" class="btn btn-danger">Reset</button>
-                    <div v-if="createBlogErr" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div v-if="error.blog" class="alert alert-danger alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
@@ -70,9 +74,6 @@
 
 import crypto from 'crypto-js'
 import services from '../api/index'
-
-// import axios from 'axios'
-// import FormData from 'form-data'
 
 export default {
     name: 'NewBlog',
@@ -93,21 +94,99 @@ export default {
             heroimg: {
                 image: null,
                 caption: null
-            },         
-            fileName: null,            
-            uploadImgbtn: true,
-            uploadingImg: null,
-            uploadedImg: null,
-            uploadErr: null,
-            createBlog: true,
-            creatingBlog: false,
-            createdBlog: false,
-            createBlogErr: false,
-            error: null
+            },       
+            
+            load: {
+                blog: true,
+                heroimg: true,
+                image: true
+            },
+            loading: {
+                blog: false,
+                heroimg: false,
+                image: false
+            },
+            loaded: {
+                blog: false,
+                heroimg: false,
+                image: false
+            },
+            error: {
+                blog: false,
+                heroimg: false,
+                image: false
+            }
         }
     },
 
-    methods: {        
+    methods: {    
+        
+        setImage(event, type)
+        {
+            if(type == 'hero')
+            {
+                this.heroimg.image = event.target.files[0];
+
+            }
+
+            if(type === Number)
+            {
+                this.blockImg = event.target.files[0]
+            }
+        },
+
+        uploadImg(type)
+        {
+            this.load.heroimg = false
+            this.loading.heroimg = true
+
+            var date = new Date()
+            var name = this.blogTitle.split(" ").join("").toLowerCase() + '_' + date.getTime() + '_hero'
+
+            // if(type == 'hero')
+            // {
+                services.uploadImg(this.heroimg.image, name, 'blog' )
+                .then(res => {
+                    if(res.status === 200)
+                    {
+                        this.loading.heroimg = false
+                        this.loaded.heroimg = true
+
+                        if(type == 'hero')
+                        {
+                            this.heroimg.image = res.data.path
+                            console.log(this.heroimg.image)
+                        }
+                        else {
+                            this.blockImg = res.data.path
+                            console.log(this.blockImg)    
+                        }
+                    }
+                }).catch(err => {
+                    if(err)
+                    {
+                        if(type == 'hero')
+                        {
+                            this.error.heroimg = true
+                            setTimeout(() => {
+                                this.error.heroimg = false
+                                this.load.heroimg = true
+                            }, 2500);
+                        }
+                        else
+                        {
+                            this.error.image = true
+                            setTimeout(() => {
+                                this.error.image = false
+                                this.load.image = true
+                            }, 2500);
+                        }
+                    } 
+
+
+                })
+            // }
+        },
 
         getBlock(event, type) 
         {
@@ -131,23 +210,6 @@ export default {
 
         },
 
-        setImage(event, type)
-        {
-            // var image = new FormData()
-
-            // image.append('file', event.target.files[0])
-
-            if(type == 'hero')
-            {
-                this.heroimg.image = event.target.files[0]
-            }
-
-            if(type === Number)
-            {
-                this.blockImg = event.target.files[0]
-            }
-        },
-
         saveBlock() 
         {            
             var block = {
@@ -162,13 +224,22 @@ export default {
             console.log(this.blocks)
         },
 
-        newBlog() {
+        getId(id)
+        {
+            const start = Math.floor(Math.random() * 10)
+    
+            id = id.substr(start, 14);
 
-            this.createBlog = false
-            this.creatingBlog = true
+            console.log(id)
+
+            return id
+        },
+
+        newBlog() {
 
             var rid = crypto.AES.encrypt(this.blogTitle, 'ishanpsahota@m3ral@wda').toString();
             rid = rid.replace(/[^a-zA-Z0-9]/g,'')
+            rid = this.getId(rid);
             
             this.blocks.length = this.blocksCount
 
@@ -188,49 +259,43 @@ export default {
             console.log(blog)            
             
             services.createBlog(blog)
-            .then(res => {
-
-                console.log(res)
+            .then(res => {                
                 
                 if(res.status == 200)
                 {
-                    if(res.data.status === 200)
+                    this.creatingBlog = false;
+                    this.createdBlog = true
+
+                    setTimeout(() => {
+                        this.$router.push('/blogs/' + res.data.blog)
+                    }, 2500);
+                }
+                else
+                {
+                    this.creatingBlog = false
+                    this.createBlogErr = true
+
+                    if(res.status == 400)
                     {
-                        this.creatingBlog = false;
-                        this.createdBlog = true
-
-                        setTimeout(() => {
-                            this.$router.push('/edit/blog/' + res.data.blog)
-                        }, 2500);
+                        this.error = "Unauthorized"
                     }
-                    else
+
+                    if(res.status == 401)
                     {
-                        this.creatingBlog = false
-                        this.createBlogErr = true
-
-                        if(res.data.status == 400)
-                        {
-                            this.error = "Unauthorized"
-                        }
-
-                        if(res.data.status == 401)
-                        {
-                            this.error = 'Unknown error'
-                        }
-
-                        if(res.data.status == 409)
-                        {
-                            this.errr = 'Similar titled blog may exist already!'
-                        }                        
-
-                        setTimeout(() => {
-                            this.createBlogErr = false
-                            this.createBlog = true
-                            this.error = null
-                        }, 2500);
-
+                        this.error = 'Unknown error'
                     }
-                    
+
+                    if(res.status == 409)
+                    {
+                        this.errr = 'Similar titled blog may exist already!'
+                    }                        
+
+                    setTimeout(() => {
+                        this.createBlogErr = false
+                        this.createBlog = true
+                        this.error = null
+                    }, 2500);
+
                 }
 
             }).catch(err => {
@@ -273,9 +338,5 @@ export default {
 
 <style>
 
-#pictureInput
-{
-    z-index: -10;
-}
 
 </style>

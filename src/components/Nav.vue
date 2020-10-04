@@ -1,6 +1,6 @@
 <template>
     <div id="nav" class="row m-0 p-0 w-100 bg-white">
-        <nav class="navbar m-1 navbar-expand-sm w-100 sticky-top navbar-dark rounded shadow bg-dark">
+        <nav class="navbar m-1 navbar-expand-sm w-100 sticky-top bg-theme rounded shadow bg-dark">
             <a :class="' navbar-brand ' + getState('') " href="/" data-toggle="tooltip" data-placement="bottom" title="Home"> <i class="fa fa-home"  aria-hidden="true"></i> </a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -65,12 +65,12 @@ export default {
             if(url[2] == null || url[2] == "")
             {
                 if(url[1] == active) return " text-warning "
-                else return " "
+                else return " text-light "
             }
             else
             {
                 if(url[1] == active) return " text-warning "
-                else return " "
+                else return " text-light "
             }
  
         },
@@ -99,5 +99,11 @@ export default {
 </script>
 
 <style>
+
+#nav
+{
+    z-index: 999 !important;
+}
+
 
 </style>

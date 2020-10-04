@@ -13,10 +13,10 @@
                         <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
                         <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
                         <div class="card-body text-center">
-                            <a :href="'/blogs/' + getPath(blog.title) " class="text-dark">
+                            <a :href="'/blogs/' + blog.randomId " class="text-dark">
                                 <h1 class="card-title "> {{blog.title}} </h1>                            
                             </a>    
-                            <span class="badge badge-pill badge-dark"> {{getDate(blog.date)}} </span>
+                            <span class="badge badge-pill bg-theme"> {{getDate(blog.date)}} </span>
                         </div>
                     </div>
                 </div>
@@ -62,11 +62,11 @@ export default {
             .then(res => {
                 if(res.status == 200)
                 {
-                    if(res.data.status === 200)
-                    {
+                    // if(res.data.status === 200)
+                    // {
                         this.loader = false
                         this.blogs = res.data.blogs
-                    }
+                    // }
                 }                
             }).catch(err => {
                 this.loader = false

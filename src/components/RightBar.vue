@@ -8,7 +8,9 @@
         </div>
         <div class="my-2 p-2">
             <h5> <strong> Recent Blogs </strong> </h5>
-
+            <ul class="list-group ">
+                <li v-for="blog in blogs" :key="blog.randomId" class="list-group-item border-0 social"> <i class="fa fa-angle-right" aria-hidden="true"></i> <a :href="'/blogs/' + blog.randomId" class=""> {{blog.title}} </a> </li>
+            </ul>
         </div>
         <div class="my-2 p-2">
             <h5> <strong> Get In Touch </strong> </h5>
@@ -31,13 +33,41 @@
 </template>
 
 <script>
+
+import api from '../api/index'
+
 export default {
 
     name: 'RightBar',
     data() {
         return {
-            quickLinks: ''
+            blogs: []
         }
+    },
+
+    methods: {
+
+        getBlogs()
+        {
+            api.getBlogs()
+            .then(res => {
+                var bArray = res.data.blogs
+                var length = bArray.length
+
+                for (let index = length-1; index > -1; index--) {
+                    this.blogs.push(bArray[index])
+                }
+
+                if(length > 5) this.blogs.length = 5;
+
+            })
+        }
+
+    },
+
+    mounted() 
+    {
+        this.getBlogs();
     }
 
 }
@@ -51,7 +81,13 @@ export default {
     }
     .social > a:hover
     {
-        color: #17a2b8;
+        color: #2e9cca;
         transition: 0.75s;
+        text-decoration: none;
+    }
+
+    #rBar
+    {
+        z-index: 0;
     }
 </style>

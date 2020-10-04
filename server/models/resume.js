@@ -12,11 +12,23 @@ const resumeSchema = new mongoose.Schema({
         image: String,
         heading: String,
         subheading: String,
-        list: Array
+        list: Array,
+        link: [{
+            title: String,
+            url: String
+        }]
 
     }],
 
     email: {
+        type: String
+    },
+
+    instagram: {
+        type: String
+    },
+
+    linkedin: {
         type: String
     }
 

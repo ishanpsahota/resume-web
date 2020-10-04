@@ -24,10 +24,10 @@
 				<h1 class="display-3"> What do I know? </h1>
 				<h6> 
 					<ul class="list-group list-group-md-horizontal">						
-						<li class="list-group-item bg-warning">MEVN Stack</li>
-						<li class="list-group-item bg-warning"> Java, C++ </li>
-						<li class="list-group-item bg-warning"> PHP, MySQL, CodeIgniter</li>
-						<li class="list-group-item bg-warning">HTML, CSS, BS4, JS</li>
+						<li class="list-group-item bg-theme">MEVN Stack</li>
+						<li class="list-group-item bg-theme"> Java, C++ </li>
+						<li class="list-group-item bg-theme"> PHP, MySQL, CodeIgniter</li>
+						<li class="list-group-item bg-theme">HTML, CSS, BS4, JS</li>
 					</ul>
 				</h6>
 			</div>
@@ -57,10 +57,10 @@
 				<h2> I have! </h2>
 				<h6> 
 					<ul class="list-group list-group-horizontal">						
-						<li class="list-group-item bg-warning">Web Development Internship</li>
-						<li class="list-group-item bg-warning"> IT Internship </li>
-						<!-- <li class="list-group-item bg-warning"> PHP, MySQL, CodeIgniter</li>
-						<li class="list-group-item bg-warning">HTML, CSS, BS4, JS</li> -->
+						<li class="list-group-item bg-theme">Web Development Internship</li>
+						<li class="list-group-item bg-theme"> IT Internship </li>
+						<!-- <li class="list-group-item bg-theme"> PHP, MySQL, CodeIgniter</li>
+						<li class="list-group-item bg-theme">HTML, CSS, BS4, JS</li> -->
 					</ul>
 				</h6>
 			</div>
@@ -73,11 +73,11 @@
 				<h1 class="display-3"> My Interests? </h1>
 				<h2 class=""> Not one! <br> </h2>
 				<ul class="list-group  mx-auto ml-sm-auto">
-					<li class="list-group-item bg-warning"> Machine Learning </li>
-					<li class="list-group-item bg-warning"> Driving </li>
-					<li class="list-group-item bg-warning"> Reading </li>
-					<li class="list-group-item bg-warning"> Music </li>
-					<li class="list-group-item bg-warning"> Cooking, and many more... </li>
+					<li class="list-group-item bg-theme"> Machine Learning </li>
+					<li class="list-group-item bg-theme"> Driving </li>
+					<li class="list-group-item bg-theme"> Reading </li>
+					<li class="list-group-item bg-theme"> Music </li>
+					<li class="list-group-item bg-theme"> Cooking, and many more... </li>
 				</ul>
 			</div>
 			<div data-aos="fade-down" class="col-12 col-md-6 m-auto">
@@ -91,8 +91,8 @@
 				<h2> Wait for it. </h2>
 				<h6> 
 					<ul class="list-group ">						
-						<li class="list-group-item bg-warning">Certificate in Machine Learning from Coursera</li>
-						<li class="list-group-item bg-warning"> CCA's Level 1 certificate in HTML, CSS, PHP </li>				
+						<li class="list-group-item bg-theme">Certificate in Machine Learning from Coursera</li>
+						<li class="list-group-item bg-theme"> CCA's Level 1 certificate in HTML, CSS, PHP </li>				
 					</ul>
 				</h6>
 			</div>
