@@ -13,9 +13,9 @@
                     <li class="nav-item px-4 ">
                         <a class="nav-link text-light" href="/blogs">Blogs </a>
                     </li>
-                    <li class="nav-item px-4 ">
+                    <!-- <li class="nav-item px-4 ">
                         <a class="nav-link text-light" href="/whoami">About Me  </a>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item px-4 ">
                         <a class="nav-link text-light" href="/myself">Myself </a>
                     </li> -->                    
