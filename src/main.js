@@ -4,9 +4,12 @@ import router from './router'
 import store from './store'
 import Axios from 'axios';
 import vueHeadful from 'vue-headful';
+import VueTouch from 'vue-touch/dist/vue-touch';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 AOS.init();
+
+Vue.use(VueTouch), {name: 'v-touch'};
 
 Vue.config.productionTip = false
 

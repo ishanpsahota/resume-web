@@ -1,0 +1,223 @@
+body
+{
+    /* font-family: 'Titillium Web', sans-serif; */
+    /* font-family: 'Quicksand', sans-serif; */
+    font-family: 'Oswald', sans-serif;
+    scroll-behavior: smooth;
+}
+
+.nBar
+{
+    font-family: 'Lora', serif;
+}
+
+.logo
+{
+    height: 15vh;
+}
+
+.box
+{
+    width: 0%;
+    animation: txt 2.5s linear infinite;    
+}
+
+.bg-black
+{
+    background-color: #202020 !important;
+}
+
+.bg-gray
+{
+    background-color: #f2f2f1 !important;
+}
+
+.text-theme
+{
+    color: #24305e !important;
+}
+
+.bg-theme
+{
+    background-color: #24305e !important;
+    color: #fff !important;
+}
+
+.bg-blue
+{
+    background-color: #f7f7f7;
+}
+
+.bg-theme:hover
+{
+    color: #f64c72 !important;
+}
+
+.bg-top
+{
+    background: rgb(32,32,32);
+    background: linear-gradient(126deg, rgba(32,32,32,1) 30%, rgba(36,48,94,1) 60%);
+    background-size: 110% 110%;
+}
+
+.bg-theme-g 
+{
+    /* background: rgb(36,37,130) !important; */
+    background: linear-gradient(126deg, rgba(36,37,130,1) 0%, rgba(85,61,103,1) 20%, rgba(246,76,114,1) 40%, rgba(153,115,142,1) 60%, rgba(47,47,162,1) 80%) !important; 
+    background-size: 400% 400% !important;
+    animation: bg-g 15s ease infinite !important;
+}
+
+@keyframes bg-g
+{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.bg-theme-g2 {
+    background: linear-gradient(314deg, #242582, #553d67, #f64c72, #99738e, #2f2fa2);
+    background-size: 1000% 1000%;
+
+    -webkit-animation: bg-theme-g 37s ease infinite;
+    -moz-animation: bg-theme-g 37s ease infinite;
+    animation: bg-theme-g 37s ease infinite;
+}
+
+@-webkit-keyframes bg-theme-g {
+    0%{background-position:0% 73%}
+    50%{background-position:100% 28%}
+    100%{background-position:0% 73%}
+}
+@-moz-keyframes bg-theme-g {
+    0%{background-position:0% 73%}
+    50%{background-position:100% 28%}
+    100%{background-position:0% 73%}
+}
+@keyframes bg-theme-g {
+    0%{background-position:0% 73%}
+    50%{background-position:100% 28%}
+    100%{background-position:0% 73%}
+}
+
+.pimg
+{
+    max-height: 50vh;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+@keyframes txt
+{
+    0% { width: 0%; display: none; }
+    10% { width: 20%; display: inline; }
+    20% { width: 40%; }
+    30% { width: 60%; }
+    40% { width: 80%; }
+    50% { width: 100%; }
+    60% { width: 80%; }
+    70% { width: 60%; }
+    80% { width: 40%; }
+    90% { width: 20%; }
+    100% { width: 0%; }
+}
+
+.card-text
+{
+    background-color: hsla(0, 100%, 0%, 0.6 );
+    filter: opacity(1);
+    
+}
+
+.card-home
+{
+    max-height: 35vh;
+    max-width: auto;
+    width: auto;
+}
+
+.card-custom
+{
+    max-height: auto;
+    max-width: 20vw;
+    width: auto ;
+}
+
+.card-custom:hover
+{
+    transform: scale(1.05);
+    transition: transform 0.5s;
+}
+
+.main-container
+{
+    min-height: 80vh;
+}
+
+.fullsize
+{
+    min-height: 75vh;
+}
+
+.carousel img
+{
+    max-height: 90vh;
+    max-width: auto;
+}
+
+.home::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.home {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+.fade-custom
+{
+    filter: opacity(1);
+    transform: filter 1s;
+}
+
+@media screen and (max-width: 900px)
+{
+    .logo
+    {
+        height: 10vh;
+    }
+
+    .card-home
+    {
+        max-width: auto;
+        width: auto;
+    }
+
+    .card-custom
+    {
+        width: auto;
+        max-width: auto;
+    }
+
+    .fullsize
+    {
+        min-height: 50vh;
+    }
+}
+
+#footer
+{
+    background: url('../images//illus//footer.svg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 25vh;
+}
+
+#nav
+{
+    z-index: 9999;
+}

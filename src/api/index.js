@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// var url = `http://localhost:8081`
-var url = `https://ishanpsahota.herokuapp.com`
+var url = `http://localhost:8081`
+// var url = `https://ishanpsahota.herokuapp.com`
 
 var urls = {
     url: url,
@@ -204,7 +204,7 @@ export default {
     {
         return new Promise((resolve, reject ) => {
 
-            axios.post(this.getUrl().createResume, resume)
+            axios.post(this.getUrl().createResume, {resume})
             .then(res => {
                 resolve(res)
             }).catch(err => {

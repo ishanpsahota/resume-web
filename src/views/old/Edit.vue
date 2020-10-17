@@ -1,10 +1,10 @@
 <template>
-    <div id="edit" class="row w-100 m-0 p-4 animate__animated animate__fadeIn"> 
+    <div id="edit" class="row w-100 m-0 p-0 animate__animated animate__fadeIn"> 
 		<vue-headful :title=title />       
         <div class="row w-100 p-0 m-0">
             <h1 class="display-3"> Edit </h1>
             <div class="col-12 border-bottom p-3">
-                <button class="btn bg-theme text-right float-right btn-md" type="button" @click="getBlogs()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
+                <button class="btn bg-theme text-right float-right btn-sm" type="button" @click="getBlogs()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
                 <h1 class=""> Your Blogs </h1>
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.blogs" class="spinner-border text-theme"> </div>
@@ -50,49 +50,11 @@
                 </div>
             </div>
             <div class="col-12 p-3 border-bottom">
-                <button class="btn bg-theme text-right float-right btn-md" type="button" @click="getResume()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
+                <button class="btn bg-theme text-right float-right btn-sm" type="button" @click="getResume()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
                 <h1 class=""> Your Details </h1>
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.resume" class="spinner-border text-theme"> </div>
-                    <div v-if="resume">
-                        <div class="card text-center">
-                            <img :src="resume.profile" class="card-img-top card-img">
-                            <div class="card-body">
-                                <h1> {{resume.name}} </h1>
-                                <!-- <div v-for="block in resume.blocks" :key="block.name">
-                                    <div class="card">
-                                        <button class="btn bg-theme" type="button" data-toggle="collapse" :data-target="block.name">
-                                            {{block.name}}
-                                        </button>
-                                        <img :src="block.image" class="card-img card-img-top">
-                                        <div class="card-body collapse " :id="block.name">
-                                            <h4> {{block.heading}} </h4>
-                                            <p> {{block.subheading}} </p>
-                                            <span class="badge badge-pill px-3 py-2 bg-theme"> {{block.name}} </span>
-                                            <ul class="list-group">
-                                                <li class="list-group-item" v-for="(list, i) in block.list" :key="i">
-                                                    {{list}}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>                                    
-                                </div> -->
-                            </div> 
-                            <div class="card-footer">
-                                <a :href="resume.instagram">
-                                    <button class="btn bg-theme m-1 " type="button"> <i class="fab fa-instagram    "></i> </button>
-                                </a>
-                                <a :href="resume.linkedin">
-                                    <button class="btn bg-theme m-1 " type="button"> <i class="fab fa-linkedin    "></i> </button>
-                                </a>
-                                <a :href="resume.email">
-                                    <button class="btn bg-theme m-1 " type="button"> <i class="fas fa-envelope-open    "></i> </button>
-                                </a>
-                                <a href="/edit/resume">
-                                    <button class="btn btn-block bg-theme m-1 " type="button"> <i class="fas fa-edit    "></i> </button>
-                                </a>
-                            </div>
-                        </div>
+                    <div v-if="resume.length > 0"> {{resume}}
                     </div>
                     <div v-else>
                         <h3> No resume present. Add one <a href="/new/resume"> now! </a> </h3>
@@ -280,14 +242,13 @@ export default {
 
             api.getResume()
             .then(res => {
-
-                console.log(res)
-
                 if(res.status == 200)
-                {                    
+                {
                     this.loading.resume = false
                     this.loaded.resume = true
-                    this.resume = res.data.resume                    
+                    this.resume = res.data.resume
+
+                    if(this.resume == []) this.resume = null
                 }
             }).catch(err => {
 
@@ -306,7 +267,6 @@ export default {
     mounted() {
 
         this.getBlogs()
-        this.getResume()
 
     }
 }

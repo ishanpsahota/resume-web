@@ -34,7 +34,7 @@ exports.getBlogs = async function(req, res)
     Blog.find().exec(function(err, blogFound) {
 
         if(err) res.status(400).json({err: 'Error in handling request'})
-        if(!blogFound) res.status(404).json({err: 'No blog found'})
+        if(!blogFound) return res.status(404).json({err: 'No blog found'})
         if(blogFound) res.status(200).json({blogs: blogFound })
 
     })
@@ -60,12 +60,15 @@ exports.deleteBlog = async function(req, res) {
     if(!req.body.randomId) return res.status(400).json({err: 'Missing Parameters'})
     else
     {
+        console.log(req.body)
         const id = req.body.randomId;
 
         console.log(id)
 
         Blog.findOne({randomId: id}).exec(function(err, blogFound) {
 
+
+            if(err) res.status(400).json({err})
             if(!blogFound) res.status(404).json({err: 'No Blog Found'});
             else
             {
@@ -73,7 +76,7 @@ exports.deleteBlog = async function(req, res) {
 
                     if(err) res.status(400).json({err})
                     if(!blogUpd) res.status(401).json({err: 'Not able to update status'})
-                    else res.status(200).json({msg: 'OK'});
+                    if(blogUpd) res.status(200).json({msg: 'OK'});
                 })
             }
         });
@@ -118,17 +121,18 @@ exports.getResume = async function(req, res) {
 
         if(err) res.status(400).json({err: 'unknown error'})
         if(!findResume) res.status(404).json({err: 'Not Found'})
-        else res.status(200).json({findResume});
+        else res.status(200).json({resume: findResume});
 
     });
-
-    
-
 }
 
 exports.createResume = async function(req, res) {
 
+    console.log(req.body);
+
     var resume = req.body.resume;
+
+    console.log(resume)
 
     if(!req.body) res.status(400).json({err: 'No Parameters provided'})
     else

@@ -1,32 +1,30 @@
 <template>
-    <div id="nav" class="row m-0 w-100 border-0 p-0">
-        <nav class="navbar navbar-expand-sm sticky-top bg-white pl-md-3 pr-md-0 py-1 w-100">
-            <a class="navbar-brand " href="/" data-toggle="tooltip" data-placement="bottom" title="Home">
-                <img src="../assets/logos/logo_transparent.png" class="logo" />
-            </a>
-            <button class="navbar-toggler  d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+    <div id="nav" class="row m-0 p-0 w-100 border-0">
+        <nav class="navbar navbar-expand-sm w-100 sticky-top py-3 px-5 bg-top border-0">
+            <a :class="' navbar-brand ' + getState('') " href="/" data-toggle="tooltip" data-placement="bottom" title="Home"> <i class="fa fa-home fa-lg"  aria-hidden="true"></i> </a>
+            <button class="navbar-toggler bg-warning  d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </button>
-            <div class="  collapse navbar-collapse p-2" id="collapsibleNavId">
-                <ul class="navbar-nav bg-theme border-theme-right ml-auto">
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item px-4 ">
-                        <a class="nav-link text-light" href="/blogs">Blogs </a>
+                        <a :class="'nav-link' + getState('blogs')" href="/blogs">Blogs </a>
                     </li>
                     <li class="nav-item px-4 ">
-                        <a class="nav-link text-light" href="/whoami">About Me  </a>
+                        <a :class="'nav-link' + getState('whoami')" href="/whoami">It Me <i class="fa fa-grin-wink    "></i> </a>
                     </li>
                     <!-- <li class="nav-item px-4 ">
-                        <a class="nav-link text-light" href="/myself">Myself </a>
+                        <a :class="'nav-link' + getState('myself')" href="/myself">Myself </a>
                     </li> -->                    
                      <li v-if="loggedIn" class="nav-item px-4 ">
-                        <a class="nav-link text-light" href="/edit"> Edit  </a>
+                        <a :class="'nav-link' + getState('edit')" href="/edit"> Edit <i class="fas fa-edit    "></i> </a>
                     </li>
                     <li v-if="loggedIn" class="nav-item px-4 ">
-                        <a class="nav-link text-light" href="/new" > New Blog  </a>
+                        <a :class="'nav-link' + getState('new')" href="/new" > New Blog <i class="fa fa-plus-circle" aria-hidden="true"></i> </a>
                     </li>
                     <li v-if="loggedIn" class="nav-item px-4 ">
-                        <a class="nav-link text-light" @click="logout()" > Logout  </a>
+                        <a :class="'nav-link' + getState('logout')" @click="logout()" > Logout <i class="fas fa-sign-out-alt    "></i> </a>
                     </li>
 
                     <!-- <li class="nav-item dropdown">
@@ -37,10 +35,10 @@
                         </div>
                     </li> -->
                 </ul>
-                <!-- <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0">
                     <input class="form-control text-warning bg-transparent border-warning mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> -->
+                    <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+                </form>
             </div>
         </nav>
     </div>
@@ -69,13 +67,13 @@ export default {
             
             if(url[2] == null || url[2] == "")
             {
-                if(url[1] == active) return " text-primary "
-                else return " text-dark "
+                if(url[1] == active) return " text-warning "
+                else return " text-light "
             }
             else
             {
-                if(url[1] == active) return " text-primary "
-                else return " text-dark "
+                if(url[1] == active) return " text-warning "
+                else return " text-light "
             }
  
         },

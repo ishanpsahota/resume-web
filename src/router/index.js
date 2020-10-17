@@ -7,6 +7,7 @@ import Blogs from '../views/Blogs.vue'
 import NewBlog from '../views/NewBlog.vue'
 import ViewBlog from '../views/ViewBlog.vue'
 import NewResume from '../views/NewResume.vue'
+import Welcome from '../views/Welcome.vue'
 
 import store from '../store/index'
 
@@ -15,6 +16,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Welcome',
+    component: Welcome
+  },
+  {
+    path: '/whoami',
     name: 'Home',
     component: Home
   },
