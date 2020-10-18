@@ -1,5 +1,5 @@
 <template>
-	<div id="welcome" class="row w-100 m-0 p-0 animate__animated animate__fadeIn">
+	<div id="welcome" class="row w-100 m-0 animate__animated animate__fadeIn ">
 		<vue-headful :title="title" />
 		<!-- <div v-if="load.resume || error.resume || loadErr.resume" class="alert alert-danger alert-dismissible fade show" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -10,9 +10,9 @@
 		</div> -->
 		<!-- {{resume}}	 -->
 		<!-- {{resume.blocks[0].name}} -->
-		<div  class="row fullsize p-0 m-0 d-flex flex-column flex-md-row">			
-			<div class="col-12 p-0 m-0 d-flex flex-column ">
-				<span class="mx-auto mt-auto">
+		<div  class="row fullsize m-auto p-3 d-flex flex-row">			
+			<div class="col-12 p-3 col-md-6 m-auto border rounded shadow-sm d-flex flex-column ">
+				<span class="mx-auto mt-auto text-center">
 					<h1 class="display-1 d-none d-md-block"> Hi, I'm {{resume.name}} </h1>
 					<h1 class="d-md-none display-3"> Hi, I'm {{resume.name}} </h1>
 				</span>
@@ -20,19 +20,19 @@
 					<h1 class="display-4 d-none d-md-block"> Nice to meet ya! </h1>
 					<h1 class="d-md-none display-4"> Nice to meet ya! </h1>
 					<h4>
-						<a :href="'#' + resume.blocks[0].name" class="text-dark"> 
+						<a :href="'#' + resume.blocks[0].name" class="text-light"> 
 							<i class="fa fa-angle-down" aria-hidden="true"></i> 
 						</a>
 					</h4>
 				</span>
 			</div>
 		</div>
-		<div class="w-100 row p-2" data-aos="fade-up" v-for="(block, i) in resume.blocks" :key="block.name">
-			<div v-if="i % 2 !== 0" class="row fullsize m-0 d-flex flex-row " :id="block.name" >
-				<div  class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
+		<div class="w-100 row p-3" data-aos="fade-up" v-for="(block, i) in resume.blocks" :key="block.name">
+			<div v-if="i % 2 !== 0" class="row fullsize m-auto p-5 d-flex flex-row " :id="block.name" >
+				<div class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
 					<img :src="block.image" class="col-img m-auto p-0 ">
 				</div>
-				<div class="col-md-6 text-center col-12 bg-white col-default m-0 d-flex flex-column">				
+				<div class="col-md-6 text-center p-3 col-12 border rounded shadow-sm col-default m-auto d-flex flex-column">				
 					<span class="mx-auto mt-auto">
 						<h1 class="display-1 d-none d-md-block"> {{block.heading}}</h1>
 						<h1 class="d-md-none display-4"> {{block.heading}} </h1>
@@ -42,17 +42,17 @@
 						<h2 class="d-md-none "> {{block.subheading}} </h2>
 					</span>
 					<span v-if="block.list" class="mx-auto my-2 d-none d-md-block text-center h2 text-light">
-						<span v-for="(list, l_i) in block.list" :key="l_i" class="badge badge-pill bg-theme px-3 py-2 m-1"> {{list}} </span>
+						<span v-for="(list, l_i) in block.list" :key="l_i" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list}} </span>
 					</span>
 					<span v-if="block.list" class="mx-auto my-2 text-center h4 d-md-none text-light">
-						<span v-for="(list_s, l_s) in block.list" :key="l_s" class="badge badge-pill bg-theme px-3 py-2 m-1"> {{list_s}} </span>
+						<span v-for="(list_s, l_s) in block.list" :key="l_s" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list_s}} </span>
 					</span>
-					<ul v-if="block.link" class="list-group border-theme-right my-2 h5">
-						<a v-for="(link, lk_i) in block.link" :key="lk_i" :href="link.url" target="_blank" class="list-group-item  bg-theme text-light "> {{link.title}} <i class="fa fa-link" aria-hidden="true"></i> </a>										
+					<ul v-if="block.link" class="list-group border-theme-right mx-auto w-75 my-2 h5">
+						<a v-for="(link, lk_i) in block.link" :key="lk_i" :href="link.url" target="_blank" class="list-group-item w-75 bg-theme-sec text-light "> {{link.title}} <i class="fa fa-link" aria-hidden="true"></i> </a>										
 					</ul>
 					<span class="mx-auto mb-auto text-center">						
 						<h4 v-if="i+1 < block_length">
-							<a :href="'#' + resume.blocks[i+1].name" class="text-dark"> 
+							<a :href="'#' + resume.blocks[i+1].name" class="text-light"> 
 								<i class="fa fa-angle-down" aria-hidden="true"></i> 
 							</a>
 						</h4>
@@ -64,11 +64,11 @@
 					</span>
 				</div>			
 			</div>		
-			<div v-else class="row fullsize m-0 d-flex flex-row-reverse " :id="block.name">
-				<div  class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
+			<div v-else class="row fullsize py-5 px-5 mx-auto my-5 d-flex flex-row-reverse " :id="block.name">
+				<div class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
 					<img :src="block.image" class="col-img m-auto p-0 ">
 				</div>
-				<div class="col-md-6 text-center col-12 bg-white col-default m-0 d-flex flex-column">				
+				<div class="col-md-6 p-5 text-center col-12 border rounded shadow-sm col-default m-auto d-flex flex-column">				
 					<span class="mx-auto mt-auto">
 						<h1 class="display-1 d-none d-md-block"> {{block.heading}}</h1>
 						<h1 class="d-md-none display-4"> {{block.heading}} </h1>					
@@ -78,17 +78,17 @@
 						<h2 class="d-md-none "> {{block.subheading}} </h2>						
 					</span>				
 					<span v-if="block.list" class="mx-auto my-2 d-none d-md-block text-center h2 text-light">
-						<span v-for="(list, l_i) in block.list" :key="l_i" class="badge badge-pill bg-theme px-3 py-2 m-1"> {{list}} </span>
+						<span v-for="(list, l_i) in block.list" :key="l_i" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list}} </span>
 					</span>
 					<span v-if="block.list" class="mx-auto my-2 text-center h4 d-md-none text-light">
-						<span v-for="(list_s, l_s) in block.list" :key="l_s" class="badge badge-pill bg-theme px-3 py-2 m-1"> {{list_s}} </span>
+						<span v-for="(list_s, l_s) in block.list" :key="l_s" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list_s}} </span>
 					</span>
 					<ul v-if="block.link" class="list-group border-theme-right my-2 h5">
-						<a v-for="(link, lk_i) in block.link" :key="lk_i" :href="link.url" target="_blank" class="list-group-item  bg-theme text-light "> {{link.title}} <i class="fa fa-link" aria-hidden="true"></i> </a>										
+						<a v-for="(link, lk_i) in block.link" :key="lk_i" :href="link.url" target="_blank" class="list-group-item bg-theme-sec text-light	 "> {{link.title}} <i class="fa fa-link" aria-hidden="true"></i> </a>										
 					</ul>
 					<span class="mx-auto mb-auto text-center">
 						<h4 v-if="i+1 < block_length">
-							<a :href="'#' + resume.blocks[i+1].name" class="text-dark"> 
+							<a :href="'#' + resume.blocks[i+1].name" class="text-light"> 
 								<i class="fa fa-angle-down" aria-hidden="true"></i> 
 							</a>
 						</h4>
@@ -101,8 +101,8 @@
 				</div>			
 			</div>			
 		</div>
-		<div class="row fullsize p-0 m-0 " id="connect">
-			<div data-aos="fade-down" class="col-12 d-flex flex-column">
+		<div class="row fullsize p-3 m-0 " id="connect">
+			<div data-aos="fade-down" class="col-12 col-md-6 border rounded shadow m-auto p-3 d-flex flex-column">
 				<div class="mx-auto mt-auto">
 					<h1 class="display-1 d-none d-md-block">
 						Let's connect!
@@ -114,19 +114,19 @@
 				<div class="mx-auto mt-3 mb-auto">
 					<div class="col-12 text-center">					
 						<a class="m-1" target="_blank" :href="resume.instagram">
-							<button class="btn m-1 icon-link" type="button"  >
+							<button class="btn m-1 border icon-link" type="button"  >
 								<h1>
 									Follow Me <i class="fab fa-instagram    "></i>
 								</h1>
 							</button>
 						</a> <br>
 						<a class="m-1" target="_blank" :href="resume.linkedin">
-							<button class="btn m-1 icon-link" type="button"  >
+							<button class="btn m-1 border icon-link" type="button"  >
 								<h1> Connect With Me <i class="fab fa-linkedin    "></i> </h1>
 							</button>
 						</a> <br>
 						<a class="m-1" target="_blank" :href="'mailto:' + resume.email">
-							<button class="btn m-1 icon-link" type="button" >
+							<button class="btn m-1 border icon-link" type="button" >
 								<h1> Mail Me <i class="fa fa-envelope-open " aria-hidden="true"></i> </h1>
 							</button>
 						</a>						
@@ -138,7 +138,7 @@
 			<div  class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
 				<img src="../assets/images/home02-1.jpg" class="col-img m-auto p-0 ">
 			</div>
-			<div class="col-md-6 text-center col-12 bg-white col-default p-0 m-0 d-flex flex-column">				
+			<div class="col-md-6 text-center col-12 border rounded shadow-sm col-default p-0 m-0 d-flex flex-column">				
 				<span class="mx-auto mt-auto">
 					<h1 class="display-1 d-none d-md-block"> A little about me</h1>
 					<h1 class="d-md-none display-4"> A little about me </h1>
@@ -158,7 +158,7 @@
 			<div  class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
 				<img src="../assets/images/home03-1.jpg" class="col-img m-auto p-0 ">
 			</div>
-			<div class="col-md-6 text-center col-12 bg-white col-default p-0 m-0 d-flex flex-column">				
+			<div class="col-md-6 text-center col-12 border rounded shadow-sm col-default p-0 m-0 d-flex flex-column">				
 				<span class="mx-auto mt-auto">
 					<h1 class="display-1 d-none d-md-block"> What do I know?</h1>
 					<h1 class="d-md-none display-4"> What do I know? </h1>					
@@ -188,7 +188,7 @@
 			<div  class="col-md-6 col-12 p-0 col-def-img shadow m-auto">
 				<img src="../assets/images/home05-1.jpg" class="col-img m-md-auto mb-0 p-0 ">
 			</div>
-			<div class="col-md-6 text-center col-12 bg-white col-default py-2 m-0 d-flex flex-column">				
+			<div class="col-md-6 text-center col-12 border rounded shadow-sm col-default py-2 m-0 d-flex flex-column">				
 				<span class="mx-auto mt-md-auto mt-2">
 					<h1 class="display-1 d-none d-md-block"> Have I worked before?</h1>
 					<h1 class="d-md-none display-4"> Have I worked before? </h1>
@@ -219,7 +219,7 @@
 			<div  class="col-md-6 col-12 p-0 m-md-auto mt-auto col-def-img shadow">
 				<img src="../assets/images/home04-1.jpg" class="col-img m-auto p-0 ">
 			</div>
-			<div  class="col-md-6 text-center col-12 bg-white col-default m-0 d-flex flex-column">				
+			<div  class="col-md-6 text-center col-12 border rounded shadow-sm col-default m-0 d-flex flex-column">				
 				<span class="mx-auto mt-auto">
 					<h1 class="display-1 d-none d-md-block"> Have I made anything?</h1>
 					<h1 class="d-md-none display-4"> Have I made anything? </h1>
@@ -244,7 +244,7 @@
 			<div  class="col-md-6 col-12 p-0 col-def-img shadow m-auto">
 				<img src="../assets/images/home06-1.jpg" class="col-img m-md-auto mb-0 p-0 ">
 			</div>
-			<div  class="col-md-6 text-center col-12 bg-white col-default py-2 m-0 d-flex flex-column">				
+			<div  class="col-md-6 text-center col-12 border rounded shadow-sm col-default py-2 m-0 d-flex flex-column">				
 				<span class="mx-auto mt-md-auto  mt-2">
 					<h1 class="display-1 d-none d-md-block"> What are my interests?</h1>
 					<h1 class="d-md-none display-4"> What are my interests? </h1>
@@ -355,7 +355,7 @@ export default {
             api.getResume()
             .then(res => {
 
-                console.log(res)
+                // console.log(res)
 
                 if(res.status == 200)
                 {                    
@@ -397,12 +397,14 @@ export default {
 {
 	background-color: #254666;
 	color: #fff;
+
 }
 
 .icon-link:hover
 {
 	background-color:#91142f;
 	color: #fff;
+	border: none;
 	transition: 0.75s;
 }
 

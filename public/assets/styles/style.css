@@ -8,6 +8,98 @@ body
 
 /* theme: #254666 */
 /*  theme-c: #91142f */
+
+/* #welcome
+{
+    background: url('../illus/welcome-f-01.svg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: bottom;
+    /* background-repeat: no-repeat; */
+    /* animation: bg-w 60s linear infinite; */
+/* }  */
+
+@keyframes bg-w
+{
+    0% {
+        background: url('../illus/welcome-01.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    10% {
+        background: url('../illus//welcome-02.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    20% {
+        background: url('../illus//welcome-03.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    30% {
+        background: url('../illus//welcome-04.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    40% {
+        background: url('../illus/welcome-05.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    50% {
+        background: url('../illus//welcome-06.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    60% {
+        background: url('../illus/welcome-05.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    70% {
+        background: url('../illus/welcome-04.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    80% {
+        background: url('../illus/welcome-03.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    90% {
+        background: url('../illus/welcome-02.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    100% {
+        background: url('../illus/welcome-01.svg');
+        background-size:cover;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+}
+
 .text-theme
 {
     color: #254666 !important;
@@ -17,6 +109,11 @@ body
 {
     background-color: #254666 !important;
     color: #fff;
+}
+
+.bg-theme-sec
+{
+    background-color: #91142f;
 }
 
 .border-theme-right

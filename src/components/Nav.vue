@@ -1,10 +1,10 @@
 <template>
     <div id="nav" class="row m-0 w-100 border-0 p-0">
-        <nav class="navbar navbar-expand-sm sticky-top bg-white pl-md-3 pr-md-0 py-1 w-100">
-            <a class="navbar-brand " href="/" data-toggle="tooltip" data-placement="bottom" title="Home">
+        <nav class="navbar navbar-expand-sm sticky-top  pl-md-3 pr-md-0 py-1 w-100">
+            <a class="navbar-brand bg-light m-auto rounded shadow " href="/" data-toggle="tooltip" data-placement="bottom" title="Home">
                 <img src="../assets/logos/logo_transparent.png" class="logo" />
             </a>
-            <button class="navbar-toggler  d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            <button class="navbar-toggler text-light border d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </button>
