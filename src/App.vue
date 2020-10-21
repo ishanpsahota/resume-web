@@ -1,9 +1,11 @@
 <template>
-	<div ref="app" id="app" class="container-fluid p-0 m-0 pattern-cross-dots-sm bg-theme text-light  ">
-		<div class="">
-			<Nav />
+	<div ref="app" id="app" class="container-fluid p-0 m-0 bg-theme text-light">		
+		<div class="sticky-top shadow">
+			<Nav />		
+		</div>		
+		<div class="fullsize w-100">
+			<router-view />
 		</div>
-		<router-view />
 	</div>
 </template>
 

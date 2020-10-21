@@ -1,314 +1,211 @@
 <template>
-	<div id="welcome" class="row w-100 m-0 animate__animated animate__fadeIn ">
-		<vue-headful :title="title" />
-		<!-- <div v-if="load.resume || error.resume || loadErr.resume" class="alert alert-danger alert-dismissible fade show" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				<span class="sr-only">Close</span>
-			</button>
-			<strong>Not found!</strong> <button class="btn bg-theme btn-block" type="button" @click="getResume()"> Try again!. </button>
-		</div> -->
-		<!-- {{resume}}	 -->
-		<!-- {{resume.blocks[0].name}} -->
-		<div  class="row fullsize m-auto p-3 d-flex flex-row">			
-			<div class="col-12 p-3 col-md-6 m-auto border rounded shadow-sm d-flex flex-column ">
-				<span class="mx-auto mt-auto text-center">
-					<h1 class="display-1 d-none d-md-block"> Hi, I'm {{resume.name}} </h1>
-					<h1 class="d-md-none display-3"> Hi, I'm {{resume.name}} </h1>
-				</span>
-				<span class="text-center mx-auto mb-auto">
-					<h1 class="display-4 d-none d-md-block"> Nice to meet ya! </h1>
-					<h1 class="d-md-none display-4"> Nice to meet ya! </h1>
-					<h4>
-						<a :href="'#' + resume.blocks[0].name" class="text-light"> 
-							<i class="fa fa-angle-down" aria-hidden="true"></i> 
-						</a>
-					</h4>
-				</span>
-			</div>
-		</div>
-		<div class="w-100 row p-3" data-aos="fade-up" v-for="(block, i) in resume.blocks" :key="block.name">
-			<div v-if="i % 2 !== 0" class="row fullsize m-auto p-5 d-flex flex-row " :id="block.name" >
-				<div class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
-					<img :src="block.image" class="col-img m-auto p-0 ">
-				</div>
-				<div class="col-md-6 text-center p-3 col-12 border rounded shadow-sm col-default m-auto d-flex flex-column">				
-					<span class="mx-auto mt-auto">
-						<h1 class="display-1 d-none d-md-block"> {{block.heading}}</h1>
-						<h1 class="d-md-none display-4"> {{block.heading}} </h1>
-					</span>
-					<span class="mx-auto my-1 text-center">
-						<h1 class=" d-none d-md-block"> {{block.subheading}}  </h1>
-						<h2 class="d-md-none "> {{block.subheading}} </h2>
-					</span>
-					<span v-if="block.list" class="mx-auto my-2 d-none d-md-block text-center h2 text-light">
-						<span v-for="(list, l_i) in block.list" :key="l_i" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list}} </span>
-					</span>
-					<span v-if="block.list" class="mx-auto my-2 text-center h4 d-md-none text-light">
-						<span v-for="(list_s, l_s) in block.list" :key="l_s" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list_s}} </span>
-					</span>
-					<ul v-if="block.link" class="list-group border-theme-right mx-auto w-75 my-2 h5">
-						<a v-for="(link, lk_i) in block.link" :key="lk_i" :href="link.url" target="_blank" class="list-group-item w-75 bg-theme-sec text-light "> {{link.title}} <i class="fa fa-link" aria-hidden="true"></i> </a>										
-					</ul>
-					<span class="mx-auto mb-auto text-center">						
-						<h4 v-if="i+1 < block_length">
-							<a :href="'#' + resume.blocks[i+1].name" class="text-light"> 
-								<i class="fa fa-angle-down" aria-hidden="true"></i> 
-							</a>
-						</h4>
-						<h4 v-else>
-							<a href="#connect" class="text-dark"> 
-								<i class="fa fa-angle-down" aria-hidden="true"></i> 
-							</a>
-						</h4>
-					</span>
-				</div>			
-			</div>		
-			<div v-else class="row fullsize py-5 px-5 mx-auto my-5 d-flex flex-row-reverse " :id="block.name">
-				<div class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
-					<img :src="block.image" class="col-img m-auto p-0 ">
-				</div>
-				<div class="col-md-6 p-5 text-center col-12 border rounded shadow-sm col-default m-auto d-flex flex-column">				
-					<span class="mx-auto mt-auto">
-						<h1 class="display-1 d-none d-md-block"> {{block.heading}}</h1>
-						<h1 class="d-md-none display-4"> {{block.heading}} </h1>					
-					</span>	
-					<span class="mx-auto my-1 text-center">
-						<h1 class=" d-none d-md-block"> {{block.subheading}}  </h1>
-						<h2 class="d-md-none "> {{block.subheading}} </h2>						
-					</span>				
-					<span v-if="block.list" class="mx-auto my-2 d-none d-md-block text-center h2 text-light">
-						<span v-for="(list, l_i) in block.list" :key="l_i" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list}} </span>
-					</span>
-					<span v-if="block.list" class="mx-auto my-2 text-center h4 d-md-none text-light">
-						<span v-for="(list_s, l_s) in block.list" :key="l_s" class="badge badge-pill bg-theme-sec px-3 py-2 m-1"> {{list_s}} </span>
-					</span>
-					<ul v-if="block.link" class="list-group border-theme-right my-2 h5">
-						<a v-for="(link, lk_i) in block.link" :key="lk_i" :href="link.url" target="_blank" class="list-group-item bg-theme-sec text-light	 "> {{link.title}} <i class="fa fa-link" aria-hidden="true"></i> </a>										
-					</ul>
-					<span class="mx-auto mb-auto text-center">
-						<h4 v-if="i+1 < block_length">
-							<a :href="'#' + resume.blocks[i+1].name" class="text-light"> 
-								<i class="fa fa-angle-down" aria-hidden="true"></i> 
-							</a>
-						</h4>
-						<h4 v-else>
-							<a href="#connect" class="text-dark"> 
-								<i class="fa fa-angle-down" aria-hidden="true"></i> 
-							</a>
-						</h4>
-					</span>
-				</div>			
-			</div>			
-		</div>
-		<div class="row fullsize p-3 m-0 " id="connect">
-			<div data-aos="fade-down" class="col-12 col-md-6 border rounded shadow m-auto p-3 d-flex flex-column">
-				<div class="mx-auto mt-auto">
-					<h1 class="display-1 d-none d-md-block">
-						Let's connect!
-					</h1>
-					<h1 class="display-4 d-md-none">
-						Let's connect
-					</h1>
-				</div>
-				<div class="mx-auto mt-3 mb-auto">
-					<div class="col-12 text-center">					
-						<a class="m-1" target="_blank" :href="resume.instagram">
-							<button class="btn m-1 border icon-link" type="button"  >
-								<h1>
-									Follow Me <i class="fab fa-instagram    "></i>
-								</h1>
-							</button>
-						</a> <br>
-						<a class="m-1" target="_blank" :href="resume.linkedin">
-							<button class="btn m-1 border icon-link" type="button"  >
-								<h1> Connect With Me <i class="fab fa-linkedin    "></i> </h1>
-							</button>
-						</a> <br>
-						<a class="m-1" target="_blank" :href="'mailto:' + resume.email">
-							<button class="btn m-1 border icon-link" type="button" >
-								<h1> Mail Me <i class="fa fa-envelope-open " aria-hidden="true"></i> </h1>
-							</button>
-						</a>						
-					</div>				
+	<div id="welcome" class="row w-100 m-0">
+		<vue-headful :title="title" />		
+		<div class="row m-0 row-bg  fullsize w-100 animate__animated animate__fadeIn" v-bind:style="bg_m()" id="welcome">			
+			<div class="col-12 d-flex flex-column text-center p-4" >
+				<div class="m-auto text-light">
+					<h1 class="display-1"> {{resume.name}}</h1>	
+					<h2 class=""> professional bio  </h2>		
+					<a href="#about" class="btn btn-danger rounded-pill text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
 				</div>
 			</div>
-		</div>	
-		<!-- <div class="row fullsize p-0 m-0 d-flex flex-row " id="me" >
-			<div  class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
-				<img src="../assets/images/home02-1.jpg" class="col-img m-auto p-0 ">
-			</div>
-			<div class="col-md-6 text-center col-12 border rounded shadow-sm col-default p-0 m-0 d-flex flex-column">				
-				<span class="mx-auto mt-auto">
-					<h1 class="display-1 d-none d-md-block"> A little about me</h1>
-					<h1 class="d-md-none display-4"> A little about me </h1>
-				</span>
-				<span class="mx-auto mb-auto text-center">
-					<h1 class=" d-none d-md-block"> I'm a 3<sup>rd</sup> year CIS student in BC, Canada </h1>
-					<h2 class="d-md-none "> I'm a 3<sup>rd</sup> year CIS student in BC, Canada </h2>
-					<h4>
-						<a href="#skills" class="text-dark"> 
-							<i class="fa fa-angle-down" aria-hidden="true"></i> 
-						</a>
-					</h4>
-				</span>
-			</div>			
 		</div>		
-		<div class="row fullsize p-0 m-0 d-flex flex-row-reverse " id="skills">
-			<div  class="col-md-6 col-12 p-0 m-auto col-def-img shadow">
-				<img src="../assets/images/home03-1.jpg" class="col-img m-auto p-0 ">
-			</div>
-			<div class="col-md-6 text-center col-12 border rounded shadow-sm col-default p-0 m-0 d-flex flex-column">				
-				<span class="mx-auto mt-auto">
-					<h1 class="display-1 d-none d-md-block"> What do I know?</h1>
-					<h1 class="d-md-none display-4"> What do I know? </h1>					
-				</span>
-				<span class="mx-auto my-2 d-none d-md-block text-center h2 text-light">
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> MEVN Stack </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Java, C++ </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> PHP, MySQL, CodeIgniter </span>	
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> HTML, CSS, BS4, JS </span>					
-				</span>
-				<span class="mx-auto my-2 text-center h4 d-md-none text-light">
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> MEVN Stack </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Java, C++ </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> PHP, MySQL, CodeIgniter </span>	
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> HTML, CSS, BS4, JS </span>					
-				</span>
-				<span class="mx-auto mb-auto text-center">
-					<h4>
-						<a href="#work" class="text-dark"> 
-							<i class="fa fa-angle-down" aria-hidden="true"></i> 
-						</a>
-					</h4>
-				</span>
-			</div>			
-		</div>
-		<div class="row fullsize p-0 m-0 d-flex flex-row " id="work">
-			<div  class="col-md-6 col-12 p-0 col-def-img shadow m-auto">
-				<img src="../assets/images/home05-1.jpg" class="col-img m-md-auto mb-0 p-0 ">
-			</div>
-			<div class="col-md-6 text-center col-12 border rounded shadow-sm col-default py-2 m-0 d-flex flex-column">				
-				<span class="mx-auto mt-md-auto mt-2">
-					<h1 class="display-1 d-none d-md-block"> Have I worked before?</h1>
-					<h1 class="d-md-none display-4"> Have I worked before? </h1>
-					<h2 class=""> I have! </h2 >
-				</span>
-				<span class="mx-auto mb-auto d-none d-md-block text-center h4 my-3 ">
-					<ul class="list-group  border-theme-right">
-						<li class="list-group-item bg-theme text-light rounded-0"> Web Internship </li>						
-						<li class="list-group-item bg-theme text-light rounded-0"> IT Internship </li>						
-					</ul>
-				</span>
-				<span class="mx-auto mb-auto d-md-none text-center h6 my-3 ">
-					<ul class="list-group  border-theme-right">
-						<li class="list-group-item bg-theme text-light rounded-0"> Web Internship </li>						
-						<li class="list-group-item bg-theme text-light rounded-0"> IT Internship </li>						
-					</ul>
-				</span>
-				<span class="mx-auto mb-auto text-center h4 d-md-none text-light">
-					<h4>
-						<a href="#projects" class="text-dark"> 
-							<i class="fa fa-angle-down" aria-hidden="true"></i> 
-						</a>
-					</h4>
-				</span>
-			</div>			
-		</div>
-		<div class="row fullsize p-0 m-0 d-flex flex-row-reverse " id="projects">
-			<div  class="col-md-6 col-12 p-0 m-md-auto mt-auto col-def-img shadow">
-				<img src="../assets/images/home04-1.jpg" class="col-img m-auto p-0 ">
-			</div>
-			<div  class="col-md-6 text-center col-12 border rounded shadow-sm col-default m-0 d-flex flex-column">				
-				<span class="mx-auto mt-auto">
-					<h1 class="display-1 d-none d-md-block"> Have I made anything?</h1>
-					<h1 class="d-md-none display-4"> Have I made anything? </h1>
-					<h3> I have! </h3>
-				</span>
-				<ul class="list-group border-theme-right my-2 h5">
-					<a href="https://insomniacsblog.000webhostapp.com/" target="_blank" class="list-group-item  bg-theme text-light "> Blog Website 1.0 <i class="fa fa-link" aria-hidden="true"></i> </a>					
-					<a href="https://insomniacsblogger.herokuapp.com/" target="_blank" class="list-group-item  bg-theme text-light "> Blog Website 2.0 <i class="fa fa-link" aria-hidden="true"></i> </a>					
-					<a href="https://family-tree-i.netlify.app/" target="_blank" class="list-group-item  bg-theme text-light "> Family Tree <i class="fa fa-link" aria-hidden="true"></i> </a>					
-					<a href="https://ishanpsahota.000webhostapp.com/" target="_blank" class="list-group-item  bg-theme text-light "> Resume Website <i class="fa fa-link" aria-hidden="true"></i> </a>					
-				</ul>
-				<span class="mx-auto mb-auto text-center">
-					<h4>
-						<a href="#interests" class="text-dark"> 
-							<i class="fa fa-angle-down" aria-hidden="true"></i> 
-						</a>
-					</h4>
-				</span>
-			</div>			
-		</div>
-		<div class="row fullsize p-0 m-0 d-flex flex-row " id="work">
-			<div  class="col-md-6 col-12 p-0 col-def-img shadow m-auto">
-				<img src="../assets/images/home06-1.jpg" class="col-img m-md-auto mb-0 p-0 ">
-			</div>
-			<div  class="col-md-6 text-center col-12 border rounded shadow-sm col-default py-2 m-0 d-flex flex-column">				
-				<span class="mx-auto mt-md-auto  mt-2">
-					<h1 class="display-1 d-none d-md-block"> What are my interests?</h1>
-					<h1 class="d-md-none display-4"> What are my interests? </h1>
-					<h2 class=""> ! </h2 >
-				</span>
-				<span class="mx-auto my-2 d-none d-md-block text-center h2 text-light">
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Machine Learning </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Driving </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Cooking </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Music </span>	
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Reading </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> and many more ... </span>
-				</span>
-				<span class="mx-auto my-2 text-center h4 d-md-none text-light">
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Machine Learning </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Driving </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Cooking </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Music </span>	
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> Reading </span>
-					<span class="badge badge-pill bg-theme px-3 py-2 m-1"> and many more ... </span>
-				</span>
-				<span class="mx-auto mb-auto text-center h4 ">
-					<h4>
-						<a href="#connect" class="text-dark"> 
-							<i class="fa fa-angle-down" aria-hidden="true"></i> 
-						</a>
-					</h4>
-				</span>
-			</div>			
-		</div>	
-		<div class="row fullsize p-0 m-0 " id="connect">
-			<div data-aos="fade-down" class="col-12 d-flex flex-column">
-				<div class="mx-auto mt-auto">
-					<h1 class="display-1 d-none d-md-block">
-						Let's connect!
-					</h1>
-					<h1 class="display-4 d-md-none">
-						Let's connect
-					</h1>
+		<div class="row m-0 p-5 text-center fullsize d-flex flex-column" id="about">
+			<div class="col-12 p-5 m-auto text-center" data-aos="fade-down">				
+				<h1 class="my-3"> {{resume.title}} </h1>
+				<div class="profile-img my-4 mx-auto p-0">
+					<img :src="resume.profile" class=" p-0" />
 				</div>
-				<div class="mx-auto mt-3 mb-auto">
-					<div class="col-12 text-center">					
-						<a class="m-1" target="_blank" href="https://instagram.com/ishanpsahota">
-							<button class="btn m-1 icon-link" type="button"  >
-								<h1>
-									Follow Me <i class="fab fa-instagram    "></i>
-								</h1>
-							</button>
-						</a> <br>
-						<a class="m-1" target="_blank" href="https://www.linkedin.com/in/ishan-prasad-b35a91181/">
-							<button class="btn m-1 icon-link" type="button"  >
-								<h1> Connect With Me <i class="fab fa-linkedin    "></i> </h1>
-							</button>
-						</a> <br>
-						<a class="m-1" target="_blank" href="mailto:ishanprasad.sahota@gmail.com">
-							<button class="btn m-1 icon-link" type="button" >
-								<h1> Mail Me <i class="fa fa-envelope-open " aria-hidden="true"></i> </h1>
-							</button>
-						</a>						
-					</div>				
+				<p class="lead">					
+					{{resume.bio}}
+				</p>
+				<a href="#work" class="btn rounded-pill text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+			</div>
+			<hr class="def-hr">
+		</div>
+		<div class="row m-0 p-5" id="work" data-aos="fade-up">
+			<h1 class=" font-weight-bold"> Work Experience </h1>
+			<div class="row w-100 p-md-5 p-3" v-for="exp in resume.workexp" :key="exp.title">
+				<div class="col-md-6 col-12 text-left m-auto text-md-right ">
+					<h1> <strong> {{exp.org}} </strong> </h1>
+				</div>
+				<div class="col-md-6 col-12 text-left">
+					<ul class="list-group" >
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{exp.title}} </li>												
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <i class="fas fa-map-pin    "></i> {{exp.location}} </li>												
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <span class="text-warning"> {{getDate(exp.start)}} </span> to <span class="text-warning"> {{getDate(exp.end)}} </span> </li>												
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <em> Experience &#8628; </em> 
+							<ul>
+								<li v-for="(detail, i) in exp.details" :key="i" class="h5"> {{detail}} </li>
+							</ul>
+						</li>												
+					</ul>
+				</div>				
+			</div>
+			<a href="#projects" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div class="row m-0 p-5" id="projects" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> Projects </h1>
+			<div class="row w-100 p-md-5 p-3 my-1 border-bottom" v-for="(project, p_i) in resume.projects" :key="p_i">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">
+					<a :href="project.url" class="text-light "> 
+						<h1> <strong> {{project.title}} </strong> </h1>
+					</a>
+					<img :src="project.pic" class="img rounded shadow" >
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<ul class="list-group" >
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; 
+							<a :href="project.url" class="text-dark btn-lg btn btn-warning"> Visit <i class="fa fa-link" aria-hidden="true"></i> </a>
+						</li>															
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{project.duration}} </li>
+						<li class="list-group-item bg-transparent border-0 h4 font-italic lead"> &nbsp;  {{project.details}} </li>
+					</ul>
 				</div>
 			</div>
-		</div>			 -->
-	</div>
+			<a href="#education" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div class="row m-0 p-5" id="education" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> Education </h1>
+			<div class="row w-100 p-md-5 p-3" v-for="(edu, e_i) in resume.education" :key="e_i">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h1> <strong> {{edu.title}} </strong> </h1>					
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<ul class="list-group" >																					
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{edu.institute}} </li>
+						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <i class="fa fa-map-marker" aria-hidden="true"></i> {{edu.location}} </li>
+						<li class="list-group-item bg-transparent border-0 h4 font-italic lead"> &nbsp;  {{edu.gpa}} </li>
+					</ul>
+				</div>
+			</div>
+			<a href="#skills" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div class="row m-0 p-5" id="skills" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> Skills </h1>
+			<div class="row w-100 p-1" v-for="(skill, s_i) in resume.skills" :key="s_i">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h1> <strong> {{skill.title}} </strong> </h1>					
+					<h4> <i class="fa fa-star" aria-hidden="true"></i> {{skill.level}}/5 </h4>
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+							:style="{'width': getSkill(skill.level) }" aria-valuenow="25" aria-valuemin="0" aria-valuemax="5">{{skill.level}}
+						</div>						
+					</div>					
+				</div>
+			</div>
+			<a href="#certificates" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div class="row m-0 p-5" id="certificates" data-aos="fade-up">
+			<h1 class=" font-weight-bold"> Certificates </h1>
+			<div class="row w-100 p-1"  v-for="(cert, c_i) in resume.certificates" :key="c_i">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h3> <strong> {{cert.title}} </strong> </h3>										
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<p class="lead"	> {{getDate(cert.date)}} </p>
+				</div>
+			</div>
+			<a href="#volunteer" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div v-if="resume.volunteer" class="row m-0 p-5" id="volunteer" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> Volunteer </h1>
+			<div class="row w-100 p-1" v-for="(work, v_i) in resume.volunteer" :key="v_i">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h3> <strong> {{work.title}} </strong> </h3>										
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<p class="lead"	> {{work.details}} </p>
+				</div>
+			</div>
+			<a href="#achievements" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div v-if="resume.achievements" class="row m-0 p-5" id="achievements" data-aos="fade-up">
+			<h1 class=" font-weight-bold"> Achievements </h1>
+			<div class="row w-100 p-1" data-aos='' v-for="(achieve, a_i) in resume.achievements" :key="a_i">
+				<div class="col-md-6 col-12 text-warning text-left m-auto  p-4 text-md-right ">					
+					<h3> <strong> {{achieve.title}} </strong> </h3>										
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<p class="lead"	> {{achieve.details}} </p>
+				</div>
+			</div>
+			<a href="#causes" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div v-if="resume.causes" class="row m-0 p-5" id="causes" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> Causes </h1>
+			<div class="row w-100 p-1" v-for="(cause, ca_i) in resume.causes" :key="ca_i">
+				<div class="col-md-6 col-12  text-left m-auto  p-4 text-md-right ">					
+					<h3> <strong> {{cause.title}} </strong> </h3>										
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<p class="lead"	> {{cause.details}} </p>
+				</div>
+			</div>
+			<a href="#references" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div v-if="resume.references" class="row m-0 p-5" id="causes" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> References </h1>
+			<div class="row w-100 p-1" v-for="(ref, r_i) in resume.references" :key="r_i">
+				<div class="col-md-6 col-12  text-left m-auto  p-4 text-md-right ">					
+					<blockquote class="blockquote">
+						<p class="mb-0"> {{ref.quote}} </p>
+						<footer class="blockquote-footer">{{ref.by}}</footer>
+					</blockquote>
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<p class="lead"	> <i class="fa fa-map-marker" aria-hidden="true"></i> {{cause.location}} </p>
+				</div>
+			</div>
+			<a href="#connect" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
+		</div>
+		<div class="row m-0 p-5 w-100" id="connect" data-aos="fade-up">
+			<h1 class="display-4 font-weight-bold"> Let's connect! </h1>			
+			<div v-if="resume.instagram" class="row w-100 m-1 p-1" id="connect_ig">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h1>
+						<i class="fab fa-instagram fa-2x" aria-hidden="true"></i>
+					</h1>
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<a :href="'https://instagram.com/' + resume.instagram" class="text-light lead"> Connect on IG! </a>
+				</div>
+			</div>
+			<div v-if="resume.linkedin" class="row w-100 m-1 p-1" id="connect_linkedin">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h1>
+						<i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+					</h1>
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<a :href="resume.linkedin" class="text-light lead"> Connect on LinkedIn! </a>
+				</div>
+			</div>	
+			<div v-if="resume.github" class="row w-100 m-1 p-1" id="connect_linkedin">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h1>
+						<i class="fab fa-github fa-2x" aria-hidden="true"></i>
+					</h1>
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<a :href="'https://github.com/' + resume.github" class="text-light lead"> Connect on GitHub! </a>
+				</div>
+			</div>	
+			<div v-if="resume.email" class="row w-100 m-1 p-1" id="connect_linkedin">
+				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
+					<h1>
+						<i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+					</h1>
+				</div>
+				<div class="col-md-6 col-12 m-auto p-4 text-left">
+					<a :href="'mailto:' + resume.email" class="text-light lead"> Send me an e-mail! </a>
+				</div>
+			</div>			
+			<!-- <a href="#references" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a> -->
+		</div>
+	</div>	
 </template>
 
 <script>
@@ -340,8 +237,7 @@ export default {
 			resume: null,
 			error: {
 				resume: false
-			},
-			block_length: 0
+			},			
 		}
 	},
 
@@ -353,17 +249,14 @@ export default {
             this.loading.resume = true
 
             api.getResume()
-            .then(res => {
-
-                // console.log(res)
+            .then(res => {               
 
                 if(res.status == 200)
                 {                    
                     this.loading.resume = false
                     this.loaded.resume = true
-					this.resume = res.data.resume  
-					this.block_length = this.resume.blocks.length;
-					// console.log('l ' + this.block_length)                  
+					this.resume = res.data.resume
+					this.bg = 'url(' + this.resume.background + ')'
                 }
             }).catch(err => {
 
@@ -371,33 +264,47 @@ export default {
                 this.loadErr.resume = true
 				this.error.resume = err;
 				this.load.resume = true
-            
-
             })
-        }
-
+		},
+		
+		bg_m()
+		{
+			var bg_i = "background: url(" + this.resume.background + "); "
+			var bg_p = "background-position: center; "
+			var bg_s = "background-size: cover; "
+			var bg_a = "background-attachment: fixed; "
+			var bg_r = "background-repeat: no-repeat; "
+			var bg = bg_i + bg_p + bg_s + bg_a + bg_r
+			console.log(bg)
+			return bg
+		},
+		
+		getDate(date)
+        {
+            const d = new Date(date)                
+            return d.toDateString()
+		},
+		
+		getSkill(level)
+		{
+			var l = (level / 5) * 100 
+			return l.toString() + '%';
+		}
 	},
 
 	beforeMount()
 	{
-		this.getResume();
-		AOS.init();
+		this.getResume();		
 	},
-
-	beforeUpdate()
-	{
-		AOS.refresh();
-	}
 }
 </script>
 
 <style>
 
-.icon-link
+/* .icon-link
 {
 	background-color: #254666;
 	color: #fff;
-
 }
 
 .icon-link:hover
@@ -406,6 +313,7 @@ export default {
 	color: #fff;
 	border: none;
 	transition: 0.75s;
-}
+} */
+
 
 </style>

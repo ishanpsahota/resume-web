@@ -191,5 +191,7 @@ routes.post('/upload/resume', auth, uploadResume.single('image'), function(req, 
 
 } )
 
+// routes.post('/temp/resume', blogResumeController.tempResume);
+
 
 module.exports = routes

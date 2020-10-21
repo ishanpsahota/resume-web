@@ -1,7 +1,7 @@
 <template>
-    <div id="login" class="row w-100 m-0 p-0 animate__animated animate__fadeIn">
+    <div id="login" class="row w-100 m-auto fullsize p-0 animate__animated animate__fadeIn">
         <vue-headful :title=title />       
-        <div class="col-12 d-flex hrow">
+        <div class="col-12 d-flex hrow m-auto text-dark">
             <div class="col-lg-4 col-12 m-auto bg-white p-4 rounded shadow-lg">
                 <h1 class="display-4 text-center"> Login </h1>
                 <form @submit.prevent="login()">

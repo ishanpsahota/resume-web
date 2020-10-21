@@ -1,7 +1,8 @@
 <template>
-    <div id="newresume" class="row w-100 p-0 m-0">
-        <vue-headful :title="title" />
-        <div class="col-12 col-lg-8 p-5">
+    <div id="newresume" class="row w-100 p-3 m-0">
+        <vue-headful :title="title" />       
+        <h1 class="display-1"> New Resume </h1>
+        <div class="col-12 col-lg-8 p-5">            
             <form @submit.prevent="createResume()">
                 <div class="form-group">
                     <label class="label font-weight-bold h4" for="name"> Name </label>

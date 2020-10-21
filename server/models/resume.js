@@ -6,21 +6,89 @@ const resumeSchema = new mongoose.Schema({
         type: String
     },
 
-    blocks: [{
+    workexp: [{
 
-        name: String,
-        image: String,
-        heading: String,
-        subheading: String,
-        list: [],
-        link: [{
-            title: String,
-            url: String
-        }]
+        org: String,
+        start: Date,
+        end: Date,
+        location: String,
+        title: String,
+        details: []
 
     }],
 
+    education: [{
+
+        institute: String,
+        start: Date,
+        end: Date,
+        location: String,
+        gpa: String,
+        title: String
+
+    }],
+
+    projects: [{
+
+        title: String,
+        url: String,
+        duration: String,
+        pic: String,
+        details: String
+
+    }],
+
+    skills: [{
+        title: String,
+        level: String
+    }],
+
+    certificates: [{
+
+        title: String,
+        date: Date
+
+    }],
+
+    interests: [],
+
+    volunteer: [{
+
+        title: String,
+        details: String
+
+    }],
+
+    achievements: [{
+        
+        title: String,
+        details: String
+    }],
+
+    causes: [{
+
+        title: String,
+        details: String,
+        date: Date
+
+    }],
+
+    references: [{
+
+        name: String,
+        quote: String
+
+    }],
+
+    github: String,
+
+    bio: String,
+
+    title: String,
+
     profile: String,
+
+    background: String,
 
     email: {
         type: String

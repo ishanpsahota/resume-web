@@ -1,19 +1,20 @@
 <template>
     <div id="edit" class="row w-100 m-0 p-4 animate__animated animate__fadeIn"> 
 		<vue-headful :title=title />       
-        <div class="row w-100 p-0 m-0">
+        <div class="row w-100 p-0 m-0 text-light">
             <h1 class="display-3"> Edit </h1>
             <div class="col-12 border-bottom p-3">
                 <button class="btn bg-theme text-right float-right btn-md" type="button" @click="getBlogs()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
+                <button class="btn bg-theme text-right float-right btn-md" type="button" @click="push(null, 'newblog')"> <i class="fa fa-plus" aria-hidden="true"></i> New </button>
                 <h1 class=""> Your Blogs </h1>
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.blogs" class="spinner-border text-theme"> </div>
                     <div v-if="blogs.length > 0">
-                    <div v-for="(blog, i) in blogs" :key="i" class="card col-12 col-lg-3 col-md-4 col-sm-6 shadow-sm p-0">                        
+                    <div v-for="(blog, i) in blogs" :key="i" class="card bg-theme border text-lightcol-12 col-lg-3 col-md-4 col-sm-6 shadow-sm p-0">                        
                         <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
                         <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
                         <div class="card-body text-center">
-                            <a :href="'/blogs/' + blog.randomId " class="text-dark">
+                            <a :href="'/blogs/' + blog.randomId " class="text-light">
                                 <h1 class=" "> {{blog.title}} </h1>                            
                             </a>    
                             <span class="badge badge-pill badge-dark"> {{getDate(blog.date)}} </span>
@@ -50,12 +51,12 @@
                 </div>
             </div>
             <div class="col-12 p-3 border-bottom">
-                <button class="btn bg-theme text-right float-right btn-md" type="button" @click="getResume()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
+                <button class="btn bg-theme border text-right float-right btn-md" type="button" @click="getResume()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
                 <h1 class=""> Your Details </h1>
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.resume" class="spinner-border text-theme"> </div>
                     <div v-if="resume">
-                        <div class="card text-center">
+                        <div class="card bg-theme border text-center">
                             <img :src="resume.profile" class="card-img-top card-img">
                             <div class="card-body">
                                 <h1> {{resume.name}} </h1>
@@ -79,17 +80,17 @@
                                 </div> -->
                             </div> 
                             <div class="card-footer">
-                                <a :href="resume.instagram">
-                                    <button class="btn bg-theme m-1 " type="button"> <i class="fab fa-instagram    "></i> </button>
+                                <a :href="'https://instagram.com' + resume.instagram" class="text-light">
+                                    <button class="btn bg-primary  m-1 text-light " type="button"> <i class="fab fa-instagram    "></i> </button>
                                 </a>
-                                <a :href="resume.linkedin">
-                                    <button class="btn bg-theme m-1 " type="button"> <i class="fab fa-linkedin    "></i> </button>
+                                <a :href="resume.linkedin" class="text-light">
+                                    <button class="btn bg-primary  m-1 text-light " type="button"> <i class="fab fa-linkedin    "></i> </button>
                                 </a>
-                                <a :href="resume.email">
-                                    <button class="btn bg-theme m-1 " type="button"> <i class="fas fa-envelope-open    "></i> </button>
+                                <a :href="'mailto:' + resume.email" class="text-light">
+                                    <button class="btn bg-primary  m-1 text-light " type="button"> <i class="fas fa-envelope-open    "></i> </button>
                                 </a>
-                                <a href="/edit/resume">
-                                    <button class="btn btn-block bg-theme m-1 " type="button"> <i class="fas fa-edit    "></i> </button>
+                                <a href="/edit/resume" class="text-light">
+                                    <button class="btn btn-block bg-primary  m-1 text-light " type="button"> <i class="fas fa-edit    "></i> </button>
                                 </a>
                             </div>
                         </div>
@@ -198,9 +199,13 @@ export default {
             })
         },
 
-        push(link)
+        push(link, type)
         {
-            this.$router.push('/edit/blog/' + link)
+            if(type == 'editblog')
+                this.$router.push('/edit/blog/' + link)
+            
+            if(type == 'newblog')
+                this.$router.push('/new/')
         },
 
         deleteBlog(link, i)
@@ -294,6 +299,7 @@ export default {
                 this.loading.resume = false
                 this.loadErr.resume = true
                 this.error.resume = err;
+                this.resume = null;
             
 
             })
