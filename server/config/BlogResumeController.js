@@ -31,6 +31,17 @@ exports.createBlog = async function(req, res) {
 
 exports.getBlogs = async function(req, res)
 {
+    Blog.find({'status': 1}).exec(function(err, blogFound) {
+
+        if(err) res.status(400).json({err: 'Error in handling request'})
+        if(!blogFound) return res.status(404).json({err: 'No blog found'})
+        if(blogFound) res.status(200).json({blogs: blogFound })
+
+    })
+}
+
+exports.getBlogsM = async function(req, res)
+{
     Blog.find().exec(function(err, blogFound) {
 
         if(err) res.status(400).json({err: 'Error in handling request'})
@@ -156,7 +167,7 @@ exports.createResume = async function(req, res) {
     }
 }
 
-exports.updateResume = async function(req, res) {
+exports.editResume = async function(req, res) {
 
     if(!req.body.resume) res.status(404).json({err: 'no parameter found'})
     else
@@ -339,7 +350,7 @@ exports.tempResume = async function(req, res) {
             }
             else res.status(401).json({err:" Not able to save resume"})
         }
-        else res.status(401).json({err: 'Not able to create resume'})
+    else res.status(401).json({err: 'Not able to create resume'})
 
 
 

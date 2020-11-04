@@ -4,8 +4,8 @@
         <div class="row w-100 p-0 m-0 text-light">
             <h1 class="display-3"> Edit </h1>
             <div class="col-12 border-bottom p-3">
-                <button class="btn bg-theme text-right float-right btn-md" type="button" @click="getBlogs()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
-                <button class="btn bg-theme text-right float-right btn-md" type="button" @click="push(null, 'newblog')"> <i class="fa fa-plus" aria-hidden="true"></i> New </button>
+                <button class="btn bg-theme border m-1 text-right float-right btn-md" type="button" @click="getBlogs()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
+                <button class="btn bg-theme border m-1 text-right float-right btn-md" type="button" @click="push(null, 'newblog')"> <i class="fa fa-plus" aria-hidden="true"></i> New </button>
                 <h1 class=""> Your Blogs </h1>
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.blogs" class="spinner-border text-theme"> </div>
@@ -80,7 +80,7 @@
                                 </div> -->
                             </div> 
                             <div class="card-footer">
-                                <a :href="'https://instagram.com' + resume.instagram" class="text-light">
+                                <!-- <a :href="'https://instagram.com' + resume.instagram" class="text-light">
                                     <button class="btn bg-primary  m-1 text-light " type="button"> <i class="fab fa-instagram    "></i> </button>
                                 </a>
                                 <a :href="resume.linkedin" class="text-light">
@@ -88,7 +88,7 @@
                                 </a>
                                 <a :href="'mailto:' + resume.email" class="text-light">
                                     <button class="btn bg-primary  m-1 text-light " type="button"> <i class="fas fa-envelope-open    "></i> </button>
-                                </a>
+                                </a> -->
                                 <a href="/edit/resume" class="text-light">
                                     <button class="btn btn-block bg-primary  m-1 text-light " type="button"> <i class="fas fa-edit    "></i> </button>
                                 </a>
@@ -168,7 +168,7 @@ export default {
                 show: true
             }
 
-            api.getBlogs()
+            api.getAllBlogs()
             .then(res => {
                 if(res.status == 200)
                 {

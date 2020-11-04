@@ -13,8 +13,8 @@
                       <label for="password">Password</label>
                       <input type="password" class="form-control" name="password" v-model="password" required id="password" placeholder="">
                     </div>
-                    <button type="submit" v-if="loginBtn" class="btn btn-warning btn-lg btn-block">Login </button>
-                    <button type="button" disabled v-if="loggingIn" class="btn btn-warning btn-lg btn-block"> <div class="spinner-border text-light"></div> </button>
+                    <button type="submit" v-if="loginBtn" class="btn bg-theme btn-lg btn-block">Login </button>
+                    <button type="button" disabled v-if="loggingIn" class="btn bg-theme btn-lg btn-block"> <div class="spinner-border text-light"></div> </button>
                     <button type="submit" v-if="loggedIn" disabled class="btn btn-primary btn-lg btn-block"> Successful </button>
                     <button type="submit" v-if="loginErr" class="btn btn-danger btn-lg btn-block">Error! </button>
                 </form>

@@ -1,211 +1,94 @@
 <template>
-	<div id="welcome" class="row w-100 m-0">
-		<vue-headful :title="title" />		
-		<div class="row m-0 row-bg  fullsize w-100 animate__animated animate__fadeIn" v-bind:style="bg_m()" id="welcome">			
-			<div class="col-12 d-flex flex-column text-center p-4" >
-				<div class="m-auto text-light">
-					<h1 class="display-1"> {{resume.name}}</h1>	
-					<h2 class=""> professional bio  </h2>		
-					<a href="#about" class="btn btn-danger rounded-pill text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-				</div>
+    <div id="welcome" class="row m-0 w-100 bg-white animate__animated animate__fadeIn" >
+        <vue-headful :title="title" />	
+        <Nav />
+		<div v-if="loading.resume" class="row m-0 fullsize w-100 text-dark"	id="loader">
+			<div class="m-auto text-center">
+				<div class="spinner-border fa-3x "> </div>			
+				<h1><em> Let me just wake up the server real quick </em></h1>
+				<!-- <p class="zzz h3 "> zzzz </p> -->
 			</div>
-		</div>		
-		<div class="row m-0 p-5 text-center fullsize d-flex flex-column" id="about">
-			<div class="col-12 p-5 m-auto text-center" data-aos="fade-down">				
-				<h1 class="my-3"> {{resume.title}} </h1>
-				<div class="profile-img my-4 mx-auto p-0">
-					<img :src="resume.profile" class=" p-0" />
-				</div>
-				<p class="lead">					
-					{{resume.bio}}
-				</p>
-				<a href="#work" class="btn rounded-pill text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-			</div>
-			<hr class="def-hr">
 		</div>
-		<div class="row m-0 p-5" id="work" data-aos="fade-up">
-			<h1 class=" font-weight-bold"> Work Experience </h1>
-			<div class="row w-100 p-md-5 p-3" v-for="exp in resume.workexp" :key="exp.title">
-				<div class="col-md-6 col-12 text-left m-auto text-md-right ">
-					<h1> <strong> {{exp.org}} </strong> </h1>
-				</div>
-				<div class="col-md-6 col-12 text-left">
-					<ul class="list-group" >
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{exp.title}} </li>												
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <i class="fas fa-map-pin    "></i> {{exp.location}} </li>												
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <span class="text-warning"> {{getDate(exp.start)}} </span> to <span class="text-warning"> {{getDate(exp.end)}} </span> </li>												
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <em> Experience &#8628; </em> 
-							<ul>
-								<li v-for="(detail, i) in exp.details" :key="i" class="h5"> {{detail}} </li>
-							</ul>
-						</li>												
-					</ul>
-				</div>				
-			</div>
-			<a href="#projects" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div class="row m-0 p-5" id="projects" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> Projects </h1>
-			<div class="row w-100 p-md-5 p-3 my-1 border-bottom" v-for="(project, p_i) in resume.projects" :key="p_i">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">
-					<a :href="project.url" class="text-light "> 
-						<h1> <strong> {{project.title}} </strong> </h1>
-					</a>
-					<img :src="project.pic" class="img rounded shadow" >
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<ul class="list-group" >
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; 
-							<a :href="project.url" class="text-dark btn-lg btn btn-warning"> Visit <i class="fa fa-link" aria-hidden="true"></i> </a>
-						</li>															
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{project.duration}} </li>
-						<li class="list-group-item bg-transparent border-0 h4 font-italic lead"> &nbsp;  {{project.details}} </li>
-					</ul>
-				</div>
-			</div>
-			<a href="#education" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div class="row m-0 p-5" id="education" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> Education </h1>
-			<div class="row w-100 p-md-5 p-3" v-for="(edu, e_i) in resume.education" :key="e_i">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h1> <strong> {{edu.title}} </strong> </h1>					
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<ul class="list-group" >																					
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{edu.institute}} </li>
-						<li class="list-group-item bg-transparent border-0 h4"> &nbsp; <i class="fa fa-map-marker" aria-hidden="true"></i> {{edu.location}} </li>
-						<li class="list-group-item bg-transparent border-0 h4 font-italic lead"> &nbsp;  {{edu.gpa}} </li>
-					</ul>
-				</div>
-			</div>
-			<a href="#skills" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div class="row m-0 p-5" id="skills" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> Skills </h1>
-			<div class="row w-100 p-1" v-for="(skill, s_i) in resume.skills" :key="s_i">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h1> <strong> {{skill.title}} </strong> </h1>					
-					<h4> <i class="fa fa-star" aria-hidden="true"></i> {{skill.level}}/5 </h4>
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<div class="progress">
-						<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-							:style="{'width': getSkill(skill.level) }" aria-valuenow="25" aria-valuemin="0" aria-valuemax="5">{{skill.level}}
-						</div>						
-					</div>					
-				</div>
-			</div>
-			<a href="#certificates" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div class="row m-0 p-5" id="certificates" data-aos="fade-up">
-			<h1 class=" font-weight-bold"> Certificates </h1>
-			<div class="row w-100 p-1"  v-for="(cert, c_i) in resume.certificates" :key="c_i">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h3> <strong> {{cert.title}} </strong> </h3>										
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<p class="lead"	> {{getDate(cert.date)}} </p>
-				</div>
-			</div>
-			<a href="#volunteer" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div v-if="resume.volunteer" class="row m-0 p-5" id="volunteer" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> Volunteer </h1>
-			<div class="row w-100 p-1" v-for="(work, v_i) in resume.volunteer" :key="v_i">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h3> <strong> {{work.title}} </strong> </h3>										
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<p class="lead"	> {{work.details}} </p>
-				</div>
-			</div>
-			<a href="#achievements" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div v-if="resume.achievements" class="row m-0 p-5" id="achievements" data-aos="fade-up">
-			<h1 class=" font-weight-bold"> Achievements </h1>
-			<div class="row w-100 p-1" data-aos='' v-for="(achieve, a_i) in resume.achievements" :key="a_i">
-				<div class="col-md-6 col-12 text-warning text-left m-auto  p-4 text-md-right ">					
-					<h3> <strong> {{achieve.title}} </strong> </h3>										
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<p class="lead"	> {{achieve.details}} </p>
-				</div>
-			</div>
-			<a href="#causes" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div v-if="resume.causes" class="row m-0 p-5" id="causes" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> Causes </h1>
-			<div class="row w-100 p-1" v-for="(cause, ca_i) in resume.causes" :key="ca_i">
-				<div class="col-md-6 col-12  text-left m-auto  p-4 text-md-right ">					
-					<h3> <strong> {{cause.title}} </strong> </h3>										
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<p class="lead"	> {{cause.details}} </p>
-				</div>
-			</div>
-			<a href="#references" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div v-if="resume.references" class="row m-0 p-5" id="causes" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> References </h1>
-			<div class="row w-100 p-1" v-for="(ref, r_i) in resume.references" :key="r_i">
-				<div class="col-md-6 col-12  text-left m-auto  p-4 text-md-right ">					
-					<blockquote class="blockquote">
-						<p class="mb-0"> {{ref.quote}} </p>
-						<footer class="blockquote-footer">{{ref.by}}</footer>
-					</blockquote>
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<p class="lead"	> <i class="fa fa-map-marker" aria-hidden="true"></i> {{cause.location}} </p>
-				</div>
-			</div>
-			<a href="#connect" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a>
-		</div>
-		<div class="row m-0 p-5 w-100" id="connect" data-aos="fade-up">
-			<h1 class="display-4 font-weight-bold"> Let's connect! </h1>			
-			<div v-if="resume.instagram" class="row w-100 m-1 p-1" id="connect_ig">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h1>
-						<i class="fab fa-instagram fa-2x" aria-hidden="true"></i>
-					</h1>
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<a :href="'https://instagram.com/' + resume.instagram" class="text-light lead"> Connect on IG! </a>
-				</div>
-			</div>
-			<div v-if="resume.linkedin" class="row w-100 m-1 p-1" id="connect_linkedin">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h1>
-						<i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
-					</h1>
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<a :href="resume.linkedin" class="text-light lead"> Connect on LinkedIn! </a>
-				</div>
-			</div>	
-			<div v-if="resume.github" class="row w-100 m-1 p-1" id="connect_linkedin">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h1>
-						<i class="fab fa-github fa-2x" aria-hidden="true"></i>
-					</h1>
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<a :href="'https://github.com/' + resume.github" class="text-light lead"> Connect on GitHub! </a>
-				</div>
-			</div>	
-			<div v-if="resume.email" class="row w-100 m-1 p-1" id="connect_linkedin">
-				<div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">					
-					<h1>
-						<i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-					</h1>
-				</div>
-				<div class="col-md-6 col-12 m-auto p-4 text-left">
-					<a :href="'mailto:' + resume.email" class="text-light lead"> Send me an e-mail! </a>
-				</div>
-			</div>			
-			<!-- <a href="#references" class="btn rounded-pill text-center mx-auto text-light"> <i class="fa fa-angle-down" aria-hidden="true"></i> </a> -->
-		</div>
-	</div>	
+        <div v-else class="row p-0 m-0  text-dark  w-100 ">
+            <div class="row fullsize_n m-0 p-5 text-center bg-img-wrapper d-flex flex-column " v-bind:style="{ 'background-image': 'url(\'' + resume.background + '\')'  }">
+                    <blockquote class="blockquote"> Life's a truck full of Fs &amp; Oofs.
+                        <footer class="blockquote-footer">Quoting myself</footer>
+                    </blockquote>
+            </div>
+            <!-- <div class="row m-0 p-0 fullsize-strict overflow-hidden">                
+                <div class="col-12 col-md-6 p-5 m-auto text-center animate__animated animate__fadeIn" >
+                    <h1 class="display-4"> {{resume.name}} </h1>
+                </div>
+                <div class="col-12 col-md-6 p-0 text-center profile-img-def">
+                    <img :src="resume.profile" class="" />
+                </div>
+            </div> -->
+            <div class="row m-0 p-0 fullsize w-100 bg_black_row" id="bg_black_row">
+                <div class="row m-0 p-5 fullsize " id="about">  
+                    <div class="col-12 m-auto">
+                        <h1 class="display-3"> ABOUT </h1>
+                        <p class=" h3 "> {{resume.bio}} </p>
+                        <blockquote class="blockquote">
+                            Also does a quite lot of binge-watching 😉
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="row m-0 w-100 p-0 fullsize " id="projects">  
+                    <div class="col-12 p-5">
+                        <h1 class="display-4"> PROJECTS </h1>
+                    </div>
+                    <div class="col-12 m-auto">                        
+                        <div class="row p-0 mx-auto justify-content-center ">
+                            <div v-for="(project, p_i) in resume.projects" :key="p_i" v-bind:style="{ 'background-image': 'url(\'' + project.pic + '\')' }" class="col-lg-4 img-box col-md-4 col-sm-6 p-0 d-flex flex-column  m-0 col-10">
+                                <div class="h-100 w-100 d-flex flex-column img-box-txt ">
+                                    <!-- <div class="w-100 h-100 m-auto "> -->
+                                        <a :href="project.url" class=" m-auto  text-center text-light">
+                                            <h4 class="m-auto  text-center"> {{project.title}} </h4>
+                                        </a>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-5 fullsize w-100 " id="social">  
+                    <div class="col-12">
+                        <h1 class="display-4 my-auto"> SOCIAL </h1>
+                    </div>
+                    <div class="row w-100 p-0 m-0 mt-2 h-50">
+                        <div class="col-12 text-center col-md-3 m-auto" id="github">
+                            <h1 class="display-4 my-2"> GitHub </h1>
+                            <p class="h4"> Check out my
+                                <a :href="'https://github.com/' + resume.github" class="btn m-1 btn-block btn-primary">
+                                    <i class="fab fa-github fa-2x" aria-hidden="true"></i> 
+                                </a> 
+                                It's mostly empty though. </p>
+                        </div>                    
+                        <div class="col-12 col-md-3 m-auto text-center" id="ig">
+                            <h1 class="display-4 my-2"> Instagram  </h1>
+                            <p class="h4"> Follow me on 
+                                <a :href="'https://instagram.com/' + resume.instagram" class="btn btn-block m-1  instagram text-light">
+                                    <i class="fab fa-instagram fa-2x" aria-hidden="true"></i> 
+                                </a> 
+                                It's mostly me though. 
+                            </p>                      
+                                    
+                        </div>    
+                        <div class="col-12 col-md-3 m-auto text-center" id="ig">
+                            <h1 class="display-4 my-2"> LinkedIn  </h1>
+                            <p class="h4"> Connect with me on 
+                                <a :href="resume.linkedin" class="btn btn-block m-1  btn-primary text-light">
+                                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i> 
+                                </a> 
+                                It's mostly me being professional though. 
+                            </p>                      
+                                    
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -214,13 +97,26 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 AOS.init();
 
+import $ from 'jquery'
 import api from '../api/index'
+
+import Nav from '../components/Nav'
+// import IgSvg from '../components/IgSvg'
 
 export default {
 
-	name: 'Welcome',
-	data() {
+    name: 'Welcome',
+
+    components: {
+        Nav,
+        // IgSvg
+    },
+
+    data() {
 		return {
+
+            igsvg: require('../../public/assets/illus/ig.svg'),
+
 			title: 'Home',
 			load: {
 				resume: false,
@@ -237,11 +133,12 @@ export default {
 			resume: null,
 			error: {
 				resume: false
-			},			
+			},
+			
 		}
-	},
-
-	methods: {
+    },
+    
+    methods: {
 
 		getResume()
         {
@@ -269,51 +166,111 @@ export default {
 		
 		bg_m()
 		{
-			var bg_i = "background: url(" + this.resume.background + "); "
-			var bg_p = "background-position: center; "
-			var bg_s = "background-size: cover; "
-			var bg_a = "background-attachment: fixed; "
-			var bg_r = "background-repeat: no-repeat; "
-			var bg = bg_i + bg_p + bg_s + bg_a + bg_r
-			console.log(bg)
-			return bg
-		},
-		
-		getDate(date)
-        {
-            const d = new Date(date)                
-            return d.toDateString()
-		},
-		
-		getSkill(level)
-		{
-			var l = (level / 5) * 100 
-			return l.toString() + '%';
-		}
-	},
+			// if(this.resume)
+			// {
+				var bg_i = "background: url(" + this.resume.background + "); "
+				var bg_p = "background-position: center; "
+				var bg_s = "background-size: cover; "
+				var bg_a = "background-attachment: fixed; "
+				var bg_r = "background-repeat: no-repeat; "
+				var bg = bg_i + bg_p + bg_s + bg_a + bg_r
+				// console.log(bg)
+				return bg
+			// }			
+        },
 
-	beforeMount()
+        change_bg()
+        {                        
+
+            $(window).on('load', function()
+            {                
+
+                $(window).scroll(function() {
+
+                    var box_pos_top = $('.bg_black_row').offset().top;
+
+                    var s_top = $(window).scrollTop();   
+                    
+                    // console.log(s_top + ' ' + box_pos_top )
+
+                    if(s_top - box_pos_top >= 0)
+                    {
+                        $('#bg_black_row').addClass(' bg-black-a ').removeClass(' bg-black-r ')
+                    }
+                    else
+                    {
+                        $('#bg_black_row').removeClass(' bg-black-a ').addClass(' bg-black-r ')
+                    }
+
+                })        
+            })
+        }
+        
+        // resizeImg()
+        // {
+            
+        //     var box = $('#welcome-box-01');
+        //     var img = $('#profile_img')
+        //     var box_ht = box.height();
+        //     var box_wdth = box.width();      
+        //     // var pos  = img.position()      
+        //     var img_left = img.position().left;
+        //     var img_top = img.position().top;            
+        //     var img_top_pc = (img_top / box_ht) * 100;
+        //     var img_left_pc = (img_left / box_wdth) * 100;
+
+        //     // console.log(pos)
+        //     // console.log(img_top + ' ' + box_ht)
+        //     // console.log(box_wdth + ' ' + img_left)
+
+        //     $(window).scroll(function() {
+
+        //         var scroll = $(window).scrollTop();
+        //         var scroll_in_pc = (scroll / box_ht) * 100;                
+
+        //         var new_top = img_top_pc - scroll_in_pc + 7;
+        //         var new_left = img_left_pc - scroll_in_pc + 7;                                
+
+        //         if(scroll == 0)
+        //         {
+        //             img.css('left',  '50%');
+        //             img.css('top',  '50%');
+        //         }
+        //         else
+        //         {
+        //             if(new_left < 5)
+        //             {
+        //                 img.css('left', '5%');
+        //             }
+        //             else img.css('left', new_left + '%');
+
+        //             if(new_top < 25.5)
+        //             {
+        //                 img.css('top', '25.5%');    
+        //             }
+        //             else img.css('top', new_top + '%');
+        //         }            
+
+        //     })
+
+        // }
+    },
+
+    beforeMount()
 	{
 		this.getResume();		
-	},
+    },
+    
+    mounted()
+    {
+        this.change_bg();
+        
+    }
+
+
 }
 </script>
 
 <style>
-
-/* .icon-link
-{
-	background-color: #254666;
-	color: #fff;
-}
-
-.icon-link:hover
-{
-	background-color:#91142f;
-	color: #fff;
-	border: none;
-	transition: 0.75s;
-} */
-
 
 </style>

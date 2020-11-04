@@ -1,24 +1,25 @@
 import axios from 'axios'
 
-// var url = `http://localhost:8081`
-var url = `https://ishanpsahota.herokuapp.com`
+var url = `http://localhost:8081`
+// var url = `https://ishanpsahota.herokuapp.com`
 
 var urls = {
     url: url,
     'addmasternow': url + '/addmasternow',
-    'getBlogs': url + '/getblogs',
-    'getBlog': url + '/getblogs/',
+    'getBlogs': url + '/blog/get',
+    'getBlog': url + '/blog/get/',
+    'getBlogsAll': url + '/blog/getall',
     'getSelf': url + '/getself',
     'shutdown': url + '/togglestate',
     'search': url + '/search',
     'getState': url + '/getstate',
-    'createBlog': url + '/create',    
+    'createBlog': url + '/blog/new',    
     'uploadImg': url + '/upload/',
-    'deleteBlog': url + '/update/blog/delete',
-    'showBlog': url + '/update/blog/show',
-    'createResume': url + '/createresume',
-    'getresume': url + '/getresume',
-    'updateResume': url + '/update/resume'
+    'deleteBlog': url + '/blog/update/delete',
+    'showBlog': url + '/blog/update/show',
+    'createResume': url + '/resume/new',
+    'getresume': url + '/resume/get',
+    'editresume': url + '/resume/edit'
 }
 
 export default {
@@ -102,6 +103,20 @@ export default {
         return new Promise((resolve, reject) => {
 
             axios.get(this.getUrl().getBlogs)
+            .then(res => {
+                resolve(res)
+            }).catch(err => {
+                reject(err)
+            })
+
+        })
+    },
+
+    getAllBlogs()
+    {
+        return new Promise((resolve, reject) => {
+
+            axios.get(this.getUrl().getBlogsAll)
             .then(res => {
                 resolve(res)
             }).catch(err => {

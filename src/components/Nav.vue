@@ -1,27 +1,23 @@
 <template>
-    <div id="nav" class="row m-0 navbar-dark bg-black w-100 p-2">        
-        <nav class="navbar nav w-100">
-            <div class="btn-group text-right">
-                <div v-if="showDiv()" class="btn-group text-right">
-                    <button class="btn bg-theme rounded-circle dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">                        
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left p-0" aria-labelledby="triggerId">
-                        <a class="dropdown-item " href="#about">About</a>                
-                        <a class="dropdown-item " href="#work">Work Experience</a>                
-                        <a class="dropdown-item " href="#projects">Projects</a>                
-                        <a class="dropdown-item " href="#education">Education</a>                
-                        <a class="dropdown-item " href="#skills">Skills</a>                
-                    </div>
-                </div>
+    <div id="nav" class="row m-0 navbar-light  w-100 p-2">        
+        <nav class="navbar navbar-expand-md nav w-100">
+            <a class="navbar-brand text-dark font-weight-lighter " href="/"> ISHAN PRASAD </a>
+            
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse mx-auto  justify-content-end navbar-collapse " id="collapseNav">
+                <!-- <a href="/login" :class="getState('login') + ' mx-1 '"> Log In </a> -->
+                <a href="#projects" :class=" ' mx-1 text-dark ' "> Projects </a>
+                <a href="/blogs" :class="getState('blogs') + '  mx-1 '"> Blogs  </a>
+                
+                <a v-if="loggedIn" @click="logout()" :class="getState('logout') + '  mx-1 '"> Log Out  </a>
+                <a v-if="loggedIn" href="/edit" :class="getState('edit') + '  mx-1 '"> Edit  </a>
+                <a v-if="loggedIn" @click="logout()" :class="getState('logout') + '  mx-1 '"> Log Out  </a>
             </div>
-            <span>
-                <a href="/" class="text-light navbar-brand"> Portfolio </a>
-                <a href="/blogs" class="text-light mx-1"> Blogs </a>            
-                <a v-if="loggedIn" class="text-light mx-1" href="/edit"> Edit </a>
-                <a v-if="loggedIn" class="text-danger mx-1" @click="logout()"> <i class="fas fa-sign-out-alt fa-lg   "></i> </a>
-            </span>
         </nav>
+        
     </div>
 </template>
 
@@ -35,8 +31,9 @@ export default {
 
     data() {
         return {
-            loggedIn: '',            
-        }
+            loggedIn: '',    
+            mode: localStorage.getItem('mode')
+        }  
     },
 
     methods: {
@@ -48,7 +45,7 @@ export default {
             
             if(url[2] == null || url[2] == "")
             {
-                if(url[1] == active) return " text-primary "
+                if(url[1] == active) return " text-underline "
                 else return " text-dark "
             }
             else
@@ -74,7 +71,8 @@ export default {
           this.$store.dispatch('logout');
           this.$router.push('/login');
 
-        }
+        },
+
     },
 
     mounted() {

@@ -15,39 +15,44 @@ axios.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 
 export default new Vuex.Store({
     state: {
-          status: '',
-          token: localStorage.getItem('token') || '',         
-          rights: localStorage.getItem('rights'),
-          whoami: localStorage.getItem('whoami')
+        status: '',
+        token: localStorage.getItem('token') || '',         
+        rights: localStorage.getItem('rights'),
+        whoami: localStorage.getItem('whoami'),
+        mode: localStorage.getItem('mode')
     },
     mutations: {
-        auth_request(state){
+        auth_request(state) {
             state.status = 'loading'
-          },
-        auth_success(state, token, whoami){
+        },
+
+        auth_success(state, token, whoami) {
             state.status = 'success',
             state.token = token,                      
             state.whoami = whoami            
-          },
+        },
+
         auth_error(state){
             state.status = 'error'
-          },
+        },
+
         logout(state){
             state.status = '',
             state.token = '',
             state.whoami = ''            
-          }
+        },
+
+        changeMode(state) {
+            state.mode = state;
+        }
     },
     actions: {
-          login({commit}, user){         
-
+        login({commit}, user) {         
             return new Promise((resolve, reject) => {
                 commit('auth_request')
                 axios({url: url + '/login', data: user, method: 'POST' })
                 .then(resp => {
-                    
-                    // console.log(resp)
-                    
+
                     if(resp.status === 200 || resp.status === 201)
                     {                        
                         var token = resp.data.token                                                                      
@@ -55,13 +60,10 @@ export default new Vuex.Store({
                         var whoami = decoded.whoami;
 
                         localStorage.setItem('token', token);                         
-                        localStorage.setItem('whoami', whoami)
-                        
-                        // console.log(localStorage.getItem('token'))                        
-                        // console.log(localStorage.getItem('whoami'))
+                        localStorage.setItem('whoami', whoami)                                               
                         
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;                        
-                        // commit('auth_success', token, status, rights);
+                        
                         commit('auth_success', token, whoami );
                         resolve(resp);
                     }
@@ -75,7 +77,8 @@ export default new Vuex.Store({
                     reject(err)
                 })
             })
-        },
+		},
+		
         logout({commit}){
             return new Promise((resolve, reject) => {
                     commit('logout')
@@ -87,12 +90,20 @@ export default new Vuex.Store({
                         reject();
                     }
             })
-          },
+		},
+
+		changeMode({commit}, mode)
+		{
+			commit('changeMode');
+			localStorage.setItem('mode', mode);
+		}
+		
     },
     getters : {
-      isLoggedIn: state => !!state.token,
-      authStatus: state => state.status,     
-      userToken: state => state.token,            
-      whoami: state => state.whoami      
-    }
+		isLoggedIn: state => !!state.token,
+		authStatus: state => state.status,     
+		userToken: state => state.token,            
+		whoami: state => state.whoami,
+		mode: state => state.mode
+	}
 })

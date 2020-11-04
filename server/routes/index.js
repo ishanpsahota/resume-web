@@ -86,15 +86,17 @@ routes.post('/login', adminController.loginAdmin);
 
 // routes.post('/addmaster', adminController.registerAdmin);
 
-routes.post('/create', auth, blogResumeController.createBlog);
+routes.post('/blog/new', auth, blogResumeController.createBlog);
 
-routes.get('/getblogs', blogResumeController.getBlogs);
+routes.get('/blog/get', blogResumeController.getBlogs);
 
-routes.get('/getblogs/:blogid', blogResumeController.getBlog);
+routes.get('/blog/getall', blogResumeController.getBlogsM);
 
-routes.post('/update/blog/delete', auth, blogResumeController.deleteBlog);
+routes.get('/blog/get/:blogid', blogResumeController.getBlog);
 
-routes.post('/update/blog/show', auth, blogResumeController.showBlog);
+routes.post('/blog/update/delete', auth, blogResumeController.deleteBlog);
+
+routes.post('/blog/update/show', auth, blogResumeController.showBlog);
 
 // routes.get('/editblog/:blogid', blogResumeController.getBlog);
 
@@ -142,11 +144,11 @@ routes.post('/upload/blog', auth, uploadBlog.single('image'), function(req, res)
 
 // resume links
 
-routes.get('/getresume', blogResumeController.getResume);
+routes.get('/resume/get', blogResumeController.getResume);
 
-routes.post('/createresume', auth, blogResumeController.createResume);
+routes.post('/resume/new', auth, blogResumeController.createResume);
 
-routes.post('/update/resume', auth, blogResumeController.updateResume);
+routes.post('/resume/edit', auth, blogResumeController.editResume);
 
 routes.post('/upload/resume', auth, uploadResume.single('image'), function(req, res) {
 

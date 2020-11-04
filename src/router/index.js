@@ -8,6 +8,7 @@ import NewBlog from '../views/NewBlog.vue'
 import ViewBlog from '../views/ViewBlog.vue'
 import NewResume from '../views/NewResume.vue'
 import Welcome from '../views/Welcome.vue'
+import EditResume from '../views/EditResume.vue'
 
 import store from '../store/index'
 
@@ -38,6 +39,14 @@ const routes = [
     path: '/edit',
     name: 'Edit',
     component: Edit,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/edit/resume',
+    name: 'EditResume',
+    component: EditResume,
     meta: {
       requiresAuth: true
     }
