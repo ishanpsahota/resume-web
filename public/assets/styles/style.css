@@ -147,7 +147,7 @@ body
 
 .bg-gray
 {
-    background-color: #dfdfdf;
+    background-color: #e6e6e6;
 }
 
 .bg-black-r
@@ -157,6 +157,14 @@ body
     transition: all 0.5s ease;
 }
 
+.social-box
+{
+    height: 35vh;
+    width: 35vh;
+}
+
+
+
 .bg-black-a
 {
     background-color: #000;
@@ -164,10 +172,31 @@ body
     transition: all 0.5s ease;
 }
 
-.img-box
+.img-box-wrapper
 {
-    height: 35vh;
-    width: auto;
+    height: 45vh;
+    width: 30vw;
+}
+
+p.gpa
+{
+    font-family: 'Staatliches', cursive;
+}
+
+.work-box
+{
+    transform: scale(1);
+    transition: all 0.5s;
+}
+
+.work-box:hover
+{
+    transform: scale(1.05);
+    transition: all 0.5s;
+}
+
+.img-box
+{   height: 100%;    
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -177,13 +206,50 @@ body
 {
     opacity: 0;
     background-color: hsla(0, 1, 10%, 0.5);
+    font-family: 'Oswald', sans-serif;
 }
 
 .img-box:hover .img-box-txt
 {
     opacity: 1;
     background-color: hsla(0, 0%, 0%, 0.75);
-    transition: opacity 0.5s;
+    transition: opacity 0.45s;
+}
+
+.edu-box
+{
+    background-color: #fff;
+    color: #000;
+    transition: all 0.5s;
+}
+
+.edu-box:hover
+{
+    background-color: #1F487E;
+    color: #fff;
+    transition: all 0.5s;
+}
+
+.skill-star
+{
+    color: #3891A6;
+    transform: scale(1);
+    transition: all 0.5s;
+}
+
+.skill-star:hover
+{
+    color: #1D3461;
+    transform: scale(1.1);
+    transition: all 0.5s;
+}
+
+#footer
+{
+    min-height: 50vh;    
+    background-color: #1D2D44;
+    /* font-family: 'Oswald', sans-serif; */
+
 }
 
 .instagram
@@ -307,7 +373,27 @@ body
     max-height: 60vh;
     max-width: 100%;
     height: auto;    
-    filter: grayscale(90%);
+    transform: scaleX(1);
+    transition: transform 0.5s;
+    /* filter: grayscale(90%); */
+}
+
+.about-text
+{
+    transform: scaleX(1);
+    transition: all 0.5s;
+}
+
+.about-text-flip
+{
+    transform: scaleX(-1);
+    transition: all 0.5s;
+}
+
+.profile-img-flip
+{
+    transform: scaleX(-1);
+    transition: transform 0.5s;
 }
 
 .profile-img-def
@@ -397,11 +483,11 @@ body
 }
 
 
-li.h4::before
+/* li.h4::before
 {
     content: "\2911 ";
     color: #f0ad4e;
-}
+} */
 
 #projects img
 {

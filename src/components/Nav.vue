@@ -1,6 +1,6 @@
 <template>
     <div id="nav" class="row m-0 navbar-light  w-100 p-2">        
-        <nav class="navbar navbar-expand-md nav w-100">
+        <nav class="navbar navbar-expand-md nav border-bottom w-100">
             <a class="navbar-brand text-dark font-weight-lighter " href="/"> ISHAN PRASAD </a>
             
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapseNav" aria-controls="collapsibleNavId"
