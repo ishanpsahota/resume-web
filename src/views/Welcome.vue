@@ -1,14 +1,10 @@
 <template>
     <div id="welcome" class="row m-0 w-100 bg-white animate__animated animate__fadeIn" >
         <vue-headful :title="title" />	
-        <Nav />
-		<div v-if="loading.resume" class="row m-0 fullsize w-100 text-dark"	id="loader">
-			<div class="m-auto text-center">
-				<div class="spinner-border fa-3x "> </div>			
-				<h1><em> Sorry I fell asleep <i class="fa fa-bed" aria-hidden="true"></i> </em></h1>
-				<!-- <p class="zzz h3 "> zzzz </p> -->
-			</div>
-		</div>
+        
+		<!-- <div v-if="loading.resume"> -->
+            <Loader v-if="loading.resume" />
+		<!-- </div> -->
         <div v-else class="row p-0 m-0  text-dark  w-100 animate__animated animate__fadeIn">
             <!-- <div class="row fullsize_n m-0 p-5 text-center bg-img-wrapper d-flex flex-column " v-bind:style="{ 'background-image': 'url(\'' + resume.background + '\')'  }"> -->
             <div class="row fullsize_n m-0 p-5 text-center " >
@@ -33,117 +29,24 @@
                 </div>
             </div> -->
             <div class="row m-0 p-0 fullsize w-100 bg_black_row" id="bg_black_row">
-                <div class="row m-0 p-md-5 p-2 fullsize about-wrapper " id="about">  
-                    <div class="col-12 col-md-11 m-auto d-flex flex-md-row about bg-gray p-5 flex-column " >
-                        <div class="col-12 col-md-6 m-auto about-text p-0 text-center text-md-left">
-                            <h1 class="display-3 "> ABOUT </h1>
-                            <!-- <p class="lead d-inline px-2 py-1 my-2 rounded  text-dark bg-light"> {{resume.title}} </p> -->
-                            <p class="lead"> {{resume.title}} </p>
-                            <p class=" h4 my-2"> {{resume.bio}} </p>
-                            <blockquote class="blockquote">
-                                Also does a quite lot of binge-watching 😉
-                            </blockquote>                            
-                        </div>
-                        <div class="col-12 col-md-6 m-auto text-center ">
-                            <img :src="resume.profile" class="img-fluid profile-img about-img" />
-                        </div>
-                    </div>
-                    <div class="col-12 text-center d-none d-md-block">
-                        <button @click="flipDiv()" class="btn" type="button">
-                            <i  class="fa fa-cube" aria-hidden="true"></i> Click to flip!
-                        </button>
-                    </div>
-                </div>
-                <div class="row m-0 w-100 p-0 fullsize " id="projects">  
-                    <div class="col-12 p-5 my-auto text-center">
-                        <h1 class="display-4"> PROJECTS </h1>
-                    </div>
-                    <div class="col-12 m-auto p-0">                        
-                        <div class="row p-0 mx-auto justify-content-center ">                            
-                            <div class="img-box-wrapper col-lg-3 col-md-4 col-sm-6 col-10 mx-2 my-4 text-center" v-for="(project, p_i) in resume.projects" :key="p_i">
-                                <div class="img-box" v-bind:style="{ 'background-image': 'url(\'' + project.pic + '\')' }">                                    
-                                    <div class="img-box-txt d-flex flex-column text-center p-3 h-100 w-100 text-light">
-                                        <h5 class="mx-auto mt-auto mb-1">
-                                            {{project.title}}
-                                        </h5>
-                                        <a class="btn mx-auto mb-auto mt-1 btn-outline-light rounded-0" :href="project.url">
-                                            View Project
-                                        </a>
-                                    </div>
-                                </div>                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0 p-4 fullsize bg-gray" id="education">                    
-                    <div class="col-12 m-auto text-center">
-                        <h1 class="display-4 d-none d-md-block"> EDUCATION </h1>
-                        <h1 class="d-md-none"> EDUCATION </h1>
-                        <blockquote class="blockquote">
-                            The more I learn, the less I know
-                            <footer class="blockquote-footer"> Albert Einsten </footer>
-                        </blockquote>
-                    </div>                          
-                    <div class="row w-100 m-0 p-0 mb-auto justify-content-center">
-                        <div v-for="(edu, e_i) in resume.education" :key="e_i" class=" edu-box card rounded-0 m-2 p-4 text-center col-10 col-sm-6 col-md-4 col-lg-3 ">                                
-                            <h2 class="card-title d-none d-md-block"> {{edu.title}} </h2>
-                            <h4 class="card-title d-block d-md-none "> {{edu.title}} </h4>
-                            <div class="card-body">
-                                <p class="lead">
-                                    {{edu.institute}}
-                                </p>
-                                <p class="card-text gpa">
-                                    {{edu.gpa}}
-                                </p>
-                            </div>
-                        </div>                            
-                    </div>                    
-                </div>
-                <div class="row m-0 p-md-4 fullsize" id="skills">
-                    <div class="col-12 m-auto text-center">
-                        <h1 class="display-4 d-none d-md-block"> SKILLS </h1>
-                        <h1 class="d-md-none"> SKILLS </h1>
-                    </div>
-                    <div class="row w-100 mb-auto mx-auto p-0">                        
-                        <ul class="list-group mb-auto mx-auto col-lg-6 p-1 col-12 list-group-flush ">
-                            <li class="list-group-item h4" v-for="(skill, s_i) in resume.skills" :key="s_i">
-                                {{skill.title}}
-                                <span class="float-right skill-star">
-                                    <span class="mx-1 " v-for="i in getSkill(skill.level)" :key="i">
-                                        <i class="fa fa-star " aria-hidden="true"> </i>
-                                    </span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row m-0 p-4 fullsize bg-gray" id="work">                    
-                    <div class="col-12 m-auto text-center">
-                        <h1 class="display-4 d-none d-md-block"> WORK EXPERIENCE </h1>
-                        <h1 class="d-md-none"> WORK EXPERIENCE </h1>
-                        <blockquote class="blockquote">
-                            Passion is the difference between having a job &amp; having a career.
-                            <footer class="blockquote-footer"> Unknown </footer>
-                        </blockquote>
-                    </div>                          
-                    <div class="row w-100 m-0 p-0 mb-auto justify-content-center">
-                        <div v-for="(work, w_i) in resume.workexp" :key="w_i" class=" work-box card rounded-0 m-2 p-4 text-center col-10 col-sm-6 col-md-4 col-lg-3 ">                                
-                            <h2 class="card-title d-none d-md-block"> {{work.title}} </h2>
-                            <h4 class="card-title d-block d-md-none "> {{work.title}} </h4>
-                            <div class="card-body">
-                                <p class="lead">
-                                    {{work.org}}
-                                </p>
-                                <p class="card-text gpa">                                    
-                                    <span v-for="(detail, d) in work.details" :key="d">
-                                        <i class="fa fa-star" aria-hidden="true"></i> {{detail}} <br>
-                                    </span>                                    
-                                </p>
-                            </div>
-                        </div>                            
-                    </div>                    
-                </div>
-                <Footer :resume=resume />
+                <!-- About -->
+                    <About :resume=resume />
+                <!-- About end -->
+                <!-- Projects -->
+                    <Projects :projects=resume.projects />
+                <!-- Projects block end -->
+                <!-- Work experience  -->
+                    <WorkExp :exp=resume.workexp />
+                <!-- Work exp end -->
+                <!-- Skills -->
+                    <Skills :skills=resume.skills />
+                <!-- Skills block end -->
+                <!-- Education -->                
+                    <Education :education=resume.education />
+                <!-- Education block end -->                                
+                <!-- Footer  -->
+                    <Footer :resume=resume />
+                <!-- Footer end -->
             </div>
         </div>
     </div>
@@ -158,17 +61,30 @@ AOS.init();
 import $ from 'jquery'
 import api from '../api/index'
 
-import Nav from '../components/Nav'
+// import Nav from '../components/Nav'
 // import IgSvg from '../components/IgSvg'
+import Loader from '../components/Loader'
 import Footer from '../components/Footer'
+
+import About from '../components/About'
+import Projects from '../components/Projects'
+import Skills from '../components/Skills'
+import Education from '../components/Education'
+import WorkExp from '../components/WorkExp'
 
 export default {
 
     name: 'Welcome',
 
     components: {
-        Nav,
+        Education,
+        Skills,
+        Projects,
+        WorkExp,
+        About,
+        // Nav,
         // IgSvg
+        Loader,
         Footer
     },
 

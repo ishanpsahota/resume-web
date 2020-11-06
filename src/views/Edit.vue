@@ -1,7 +1,7 @@
 <template>
     <div id="edit" class="row w-100 m-0 p-4 animate__animated animate__fadeIn"> 
 		<vue-headful :title=title />       
-        <div class="row w-100 p-0 m-0 text-light">
+        <div class="row w-100 p-0 m-0 ">
             <h1 class="display-3"> Edit </h1>
             <div class="col-12 border-bottom p-3">
                 <button class="btn bg-theme border m-1 text-right float-right btn-md" type="button" @click="getBlogs()"> <i class="fas fa-sync-alt    "></i> Refresh </button>
@@ -10,11 +10,11 @@
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.blogs" class="spinner-border text-theme"> </div>
                     <div v-if="blogs.length > 0">
-                    <div v-for="(blog, i) in blogs" :key="i" class="card bg-theme border text-lightcol-12 col-lg-3 col-md-4 col-sm-6 shadow-sm p-0">                        
+                    <div v-for="(blog, i) in blogs" :key="i" class="card border text-lightcol-12 col-lg-3 col-md-4 col-sm-6 shadow-sm p-0">                        
                         <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
                         <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
                         <div class="card-body text-center">
-                            <a :href="'/blogs/' + blog.randomId " class="text-light">
+                            <a :href="'/blogs/' + blog.randomId " class="text-dark">
                                 <h1 class=" "> {{blog.title}} </h1>                            
                             </a>    
                             <span class="badge badge-pill badge-dark"> {{getDate(blog.date)}} </span>
@@ -56,7 +56,7 @@
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.resume" class="spinner-border text-theme"> </div>
                     <div v-if="resume">
-                        <div class="card bg-theme border text-center">
+                        <div class="card  border text-center">
                             <img :src="resume.profile" class="card-img-top card-img">
                             <div class="card-body">
                                 <h1> {{resume.name}} </h1>

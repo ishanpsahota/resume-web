@@ -1,5 +1,5 @@
 <template>
-    <div id="blogs" class="row w-100 m-0 p-0 animate__animated animate__fadeIn"> 
+    <div id="blogs" class="row w-100 m-0 p-3 animate__animated animate__fadeIn"> 
 		<vue-headful :title=title />       
         <div class="col-12">
             <h1 class="display-1"> Blogs </h1>
@@ -7,16 +7,16 @@
                 <h1 class="display-4"> Fetching blogs for you. </h1>
                 <div class="spinner-border text-dark"></div>
             </div>
-            <div v-else class="row w-100 m-0 p-0">
+            <div v-else class="row w-100 m-0 p-3 text-dark">
                 <div v-if="blogs.length > 0">
-                    <div v-for="blog in blogs" :key="blog.randomId" class="card bg-theme border p-0 col-12 col-lg-3 shadow-sm col-md-4 col-sm-6">
+                    <div v-for="blog in blogs" :key="blog.randomId" class="card border p-0 col-12 col-lg-3  col-md-4 col-sm-6">
                         <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
                         <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
                         <div class="card-body text-center">
-                            <a :href="'/blogs/' + blog.randomId " class="text-light">
+                            <a :href="'/blogs/' + blog.randomId " class=" text-dark">
                                 <h1 class="card-title "> {{blog.title}} </h1>                            
                             </a>    
-                            <span class="badge badge-pill bg-dark"> {{getDate(blog.date)}} </span>
+                            <span class="badge badge-pill bg-theme"> {{getDate(blog.date)}} </span>
                         </div>
                     </div>
                 </div>

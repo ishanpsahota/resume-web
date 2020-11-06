@@ -9,12 +9,12 @@
             </button>
             <div class="collapse mx-auto  justify-content-end navbar-collapse " id="collapseNav">
                 <!-- <a href="/login" :class="getState('login') + ' mx-1 '"> Log In </a> -->
-                <a href="#projects" :class=" ' mx-1 text-dark ' "> Projects </a>
+                <a href="/#projects" :class=" ' mx-1 text-dark ' "> Projects </a>
                 <a href="/blogs" :class="getState('blogs') + '  mx-1 '"> Blogs  </a>
                 
-                <a v-if="loggedIn" @click="logout()" :class="getState('logout') + '  mx-1 '"> Log Out  </a>
+                <!-- <a v-if="loggedIn" @click="logout()" :class="getState('logout') + '  mx-1 '"> Log Out  </a> -->
                 <a v-if="loggedIn" href="/edit" :class="getState('edit') + '  mx-1 '"> Edit  </a>
-                <a v-if="loggedIn" @click="logout()" :class="getState('logout') + '  mx-1 '"> Log Out  </a>
+                <a v-if="loggedIn" @click="logout()" :class=" ' text-light btn btn-dark  mx-1 '"> Log Out <i class="fa fa-sign-out-alt" aria-hidden="true"></i>  </a>
             </div>
         </nav>
         

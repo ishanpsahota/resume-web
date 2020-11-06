@@ -4,9 +4,9 @@
 			<button class="btn btn-outline-light m-1" type="button" v-if="mode == 'dark'" @click="changeMode(mode)"> <i class="fas fa-sun    "></i> </button>
             <button class="btn btn-outline-light m-1" type="button" v-if="mode == 'light'" @click="changeMode(mode)"> <i class="fas fa-moon    "></i> </button>
 		</div>			 -->
-		<!-- <div class="sticky-top m-0 shadow">
-			<Nav />		
-		</div>		 -->
+		<!-- <div class="sticky-top m-0 shadow"> -->
+		<Nav />		
+		<!-- </div>		 --> 
 		<div class="row p-0 m-0 fullsize w-100 " >
 			<router-view />
 		</div>
@@ -21,12 +21,12 @@ AOS.init();
 
 import 'pattern.css/dist/pattern.css'
 
-// import Nav from './components/Nav'
+import Nav from './components/Nav'
 
 export default {
 	name: 'App',
 	components: {
-		// Nav
+		Nav
 	},
 	data() {
 		return {

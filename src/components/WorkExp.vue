@@ -1,26 +1,29 @@
 <template>
-    <div class="row w-100 p-md-5 p-3">
-        <div class="col-md-6 col-12 text-left m-auto text-md-right ">
-            <h1> <strong> {{exp.org}} </strong> </h1>
-        </div>
-        <div class="col-md-6 col-12 text-left">
-            <ul class="list-group" >
-                <li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{exp.title}} </li>												
-                <li class="list-group-item bg-transparent border-0 h4"> &nbsp; <i class="fas fa-map-pin    "></i> {{exp.location}} </li>												
-                <li class="list-group-item bg-transparent border-0 h4"> &nbsp; 
-                    <span v-if="mode == 'dark'" class="text-warning"> {{getDate(exp.start)}} </span> 
-                    <span v-else class="text-primary"> {{getDate(exp.start)}} </span> 
-                    to 
-                    <span v-if="mode == 'dark'" class="text-warning"> {{getDate(exp.end)}} </span> 
-                    <span v-else class="text-primary"> {{getDate(exp.end)}} </span> 
-                </li>												
-                <li class="list-group-item bg-transparent border-0 h4"> &nbsp; <em> Experience &#8628; </em> 
-                    <ul>
-                        <li v-for="(detail, i) in exp.details" :key="i" class="h5"> {{detail}} </li>
-                    </ul>
-                </li>												
-            </ul>
-        </div>				
+    <div class="row m-0 p-4 fullsize bg-gray" id="work">                    
+        <div class="col-12 m-auto text-center">
+            <h1 class="display-4 d-none d-md-block"> WORK EXPERIENCE </h1>
+            <h1 class="d-md-none"> WORK EXPERIENCE </h1>
+            <blockquote class="blockquote">
+                Passion is the difference between having a job &amp; having a career.
+                <footer class="blockquote-footer"> Unknown </footer>
+            </blockquote>
+        </div>                          
+        <div class="row w-100 m-0 p-0 mb-auto justify-content-center">
+            <div v-for="(work, w_i) in exp" :key="w_i" class=" work-box card rounded-0 m-2 p-4 text-center col-10 col-sm-6 col-md-4 col-lg-3 ">                                
+                <h2 class="card-title d-none d-md-block"> {{work.title}} </h2>
+                <h4 class="card-title d-block d-md-none "> {{work.title}} </h4>
+                <div class="card-body">
+                    <p class="lead">
+                        {{work.org}}
+                    </p>
+                    <p class="card-text gpa">                                    
+                        <span v-for="(detail, d) in work.details" :key="d">
+                            <i class="fa fa-star" aria-hidden="true"></i> {{detail}} <br>
+                        </span>                                    
+                    </p>
+                </div>
+            </div>                            
+        </div>                    
     </div>
 </template>
 
@@ -28,7 +31,7 @@
 export default {
     name: 'WorkExp',
     props: {
-        exp: Object
+        exp: Array
     },
 
     data() {

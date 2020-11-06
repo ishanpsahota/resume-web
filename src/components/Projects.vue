@@ -1,19 +1,23 @@
 <template>
-    <div class="row w-100 p-md-5 p-3 my-1 border-bottom">
-        <div class="col-md-6 col-12 text-left m-auto  p-4 text-md-right ">
-            <a :href="project.url" :class="getMode() "> 
-                <h1> <strong> {{project.title}} </strong> </h1>
-            </a>
-            <img :src="project.pic" class="img rounded shadow" >
+    <div class="row m-0 w-100 p-3 fullsize " id="projects">  
+        <div class="col-12 p-5 my-auto text-center">
+            <h1 class="display-4"> PROJECTS </h1>
         </div>
-        <div class="col-md-6 col-12 m-auto p-4 text-left">
-            <ul class="list-group" >
-                <li class="list-group-item bg-transparent border-0 h4"> &nbsp; 
-                    <a :href="project.url" class="text-dark btn-lg btn btn-warning"> Visit <i class="fa fa-link" aria-hidden="true"></i> </a>
-                </li>															
-                <li class="list-group-item bg-transparent border-0 h4"> &nbsp; {{project.duration}} </li>
-                <li class="list-group-item bg-transparent border-0 h4 font-italic lead"> &nbsp;  {{project.details}} </li>
-            </ul>
+        <div class="col-12 m-auto p-0">                        
+            <div class="row p-0 mx-auto justify-content-center ">                            
+                <div class="img-box-wrapper col-lg-3 col-md-4 col-sm-6 col-10 mx-2 my-4 text-center" v-for="(project, p_i) in projects" :key="p_i">
+                    <div class="img-box" v-bind:style="{ 'background-image': 'url(\'' + project.pic + '\')' }">                                    
+                        <div class="img-box-txt d-flex flex-column text-center p-3 h-100 w-100 text-light">
+                            <h5 class="mx-auto mt-auto mb-1">
+                                {{project.title}}
+                            </h5>
+                            <a class="btn mx-auto mb-auto mt-1 btn-outline-light rounded-0" :href="project.url">
+                                View Project
+                            </a>
+                        </div>
+                    </div>                                
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -23,7 +27,7 @@ export default {
 
     name: 'Projects',
     props: {
-        project: Object
+        projects: Array
     },
     data() 
     {
