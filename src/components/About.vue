@@ -8,7 +8,8 @@
                 <p class=" h4 my-2"> {{resume.bio}} </p>
                 <blockquote class="blockquote">
                     Also does a quite lot of binge-watching 😉
-                </blockquote>                            
+                </blockquote>   
+                <a href="/blogs" class="about-link text-dark rounded-0 btn "> Checkout my Blogs! </a>
             </div>
             <div class="col-12 col-md-6 m-auto text-center ">
                 <img :src="resume.profile" class="img-fluid profile-img about-img" />

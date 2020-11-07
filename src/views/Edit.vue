@@ -9,43 +9,43 @@
                 <h1 class=""> Your Blogs </h1>
                 <div class="row w-100 p-0 m-0">
                     <div v-if="loading.blogs" class="spinner-border text-theme"> </div>
-                    <div v-if="blogs.length > 0">
-                    <div v-for="(blog, i) in blogs" :key="i" class="card border text-lightcol-12 col-lg-3 col-md-4 col-sm-6 shadow-sm p-0">                        
-                        <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
-                        <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
-                        <div class="card-body text-center">
-                            <a :href="'/blogs/' + blog.randomId " class="text-dark">
-                                <h1 class=" "> {{blog.title}} </h1>                            
-                            </a>    
-                            <span class="badge badge-pill badge-dark"> {{getDate(blog.date)}} </span>
-                        </div>
-                        <div class="card-footer m-0 text-center">
-                            <!-- edit button -->
-                            <button type="button" data-toggle="tooltip" title="Edit" data-placement="bottom" class="btn btn-dark m-1" @click="push(blog.randomId)"> <i class="fas fa-edit    "></i> </button>
-                            <!-- delete buttons -->
-                            <button type="button" v-if="load.delete[i].delete && blog.status == 1" data-toggle="tooltip" title="Delete" data-placement="bottom" class="btn btn-danger m-1" @click="deleteBlog(blog.randomId, i)"> <i class="fas fa-trash    "></i> </button>
-                            <button type="button" v-if="loading.delete[i].delete" disabled  class="btn btn-danger m-1" > <div class="spinner-border"> </div> </button>
-                            <!-- <button type="button" v-if="loaded.delete[i].delete"  disabled  class="btn btn-danger m-1" > <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
-                            <button type="button" v-if="loadErr.delete[i].delete" disabled  class="btn btn-danger m-1" > <i class="fa fa-exclamation" aria-hidden="true"></i> </button> -->
-                            
-                            <!-- show button -->
-                            <button type="button" v-if="load.show[i].show && blog.status == 0" data-toggle="tooltip" title="Show Blog" data-placement="bottom" class="btn btn-success" @click="showBlog(blog.randomId, i)">  <i class="fa fa-eye" aria-hidden="true"></i> </button>
-                            <button type="button" v-if="loading.show[i].show" disabled  class="btn btn-success m-1" > <div class="spinner-border"> </div> </button>
-                            <!-- <button type="button" v-if="loaded.show[i].show"  disabled  class="btn btn-success m-1" > <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
-                            <button type="button" v-if="loadErr.show[i].show" disabled  class="btn btn-success m-1" > <i class="fa fa-exclamation" aria-hidden="true"></i> </button> -->
+                    <!-- <div v-if="blogs.length > 0"> -->
+                        <div v-for="(blog, i) in blogs" :key="i" class="card border text-lightcol-12 m-2 col-lg-3 col-md-4 col-sm-6 shadow-sm p-0">                        
+                            <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
+                            <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
+                            <div class="card-body text-center">
+                                <a :href="'/blogs/' + blog.randomId " class="text-dark">
+                                    <h1 class=" "> {{blog.title}} </h1>                            
+                                </a>    
+                                <span class="badge badge-pill badge-dark"> {{getDate(blog.date)}} </span>
+                            </div>
+                            <div class="card-footer m-0 text-center">
+                                <!-- edit button -->
+                                <button type="button" data-toggle="tooltip" title="Edit" data-placement="bottom" class="btn btn-dark m-1" @click="push(blog.randomId)"> <i class="fas fa-edit    "></i> </button>
+                                <!-- delete buttons -->
+                                <button type="button" v-if="load.delete[i].delete && blog.status == 1" data-toggle="tooltip" title="Delete" data-placement="bottom" class="btn btn-danger m-1" @click="deleteBlog(blog.randomId, i)"> <i class="fas fa-trash    "></i> </button>
+                                <button type="button" v-if="loading.delete[i].delete" disabled  class="btn btn-danger m-1" > <div class="spinner-border"> </div> </button>
+                                <!-- <button type="button" v-if="loaded.delete[i].delete"  disabled  class="btn btn-danger m-1" > <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
+                                <button type="button" v-if="loadErr.delete[i].delete" disabled  class="btn btn-danger m-1" > <i class="fa fa-exclamation" aria-hidden="true"></i> </button> -->
+                                
+                                <!-- show button -->
+                                <button type="button" v-if="load.show[i].show && blog.status == 0" data-toggle="tooltip" title="Show Blog" data-placement="bottom" class="btn btn-success" @click="showBlog(blog.randomId, i)">  <i class="fa fa-eye" aria-hidden="true"></i> </button>
+                                <button type="button" v-if="loading.show[i].show" disabled  class="btn btn-success m-1" > <div class="spinner-border"> </div> </button>
+                                <!-- <button type="button" v-if="loaded.show[i].show"  disabled  class="btn btn-success m-1" > <i class="fa fa-check-circle" aria-hidden="true"></i> </button>
+                                <button type="button" v-if="loadErr.show[i].show" disabled  class="btn btn-success m-1" > <i class="fa fa-exclamation" aria-hidden="true"></i> </button> -->
 
-                            <!-- errormsg -->
-                            <p v-if="loadErr.delete[i].delete == true && error.delete"> Delete Error!  </p>
-                            <p v-if="loadErr.delete[i].delete == true && error.show"> Show Blog Error!  </p>
+                                <!-- errormsg -->
+                                <p v-if="loadErr.delete[i].delete == true && error.delete"> Delete Error!  </p>
+                                <p v-if="loadErr.delete[i].delete == true && error.show"> Show Blog Error!  </p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div v-else-if="loadErr.blog">
+                    <!-- </div> -->
+                <div v-if="loadErr.blog">
                     <div class="alert alert-danger" role="alert">
                         <strong>Error!</strong> {{error.blog}}
                     </div>
                 </div>
-                <div v-else>
+                <div v-if="blogs == []">
                     <h3> No blog present for now. Wait for the creator to add some! </h3>
                 </div>
                 </div>

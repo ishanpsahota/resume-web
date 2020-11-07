@@ -8,8 +8,8 @@
                 <div class="spinner-border text-dark"></div>
             </div>
             <div v-else class="row w-100 m-0 p-3 text-dark">
-                <div v-if="blogs.length > 0">
-                    <div v-for="blog in blogs" :key="blog.randomId" class="card border p-0 col-12 col-lg-3  col-md-4 col-sm-6">
+                <!-- <div v-if="blogs.length > 0"> -->
+                    <div v-for="blog in blogs" :key="blog.randomId" class="card border p-0 col-12 col-lg-3 m-2 col-md-4 col-sm-6">
                         <img v-if="blog.heroimg.image" :src="blog.heroimg.image" :alt="blog.title" class="img-fluid card-img-top">
                         <img v-else src="../assets/images/default.jpg" class="card-img-top img-fluid" :alt="blog.title" />
                         <div class="card-body text-center">
@@ -19,13 +19,13 @@
                             <span class="badge badge-pill bg-theme"> {{getDate(blog.date)}} </span>
                         </div>
                     </div>
-                </div>
-                <div v-else-if="blogErr">
+                <!-- </div> -->
+                <div v-if="blogErr">
                     <div class="alert alert-danger" role="alert">
                         <strong>Error!</strong> {{blogErr}}
                     </div>
                 </div>
-                <div v-else>
+                <div v-if=" blogs == [] ">
                     <h3> No blog present for now. Wait for the creator to add some! </h3>
                 </div>
             </div>

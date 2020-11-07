@@ -1,39 +1,32 @@
 <template>
     <div id="vblog" class="row w-100 p-0 m-0">
         <vue-headful :title=title />               
-        <div class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row" id="me">
-            <div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
-                <h1 class="display-1"> {{blog.title}} </h1>
-                
-            </div>
-            <div  class="col-12 col-md-6 m-auto">
-                <img :src="blog.heroimg.image" class="pimg img-fluid my-auto rounded shadow-lg">
-                <small v-if="blog.heroimg.caption"> {{blog.heroimg.caption}} </small>
-                <small v-else> Caption Here </small>
+        <div class="row blog-hero m-0 p-0" v-bind:style="{ 'background-image': 'url(\'' + blog.heroimg.image + '\')' }">
+            <div class="col-12 d-flex blog-hero-txt">                
+                <div class="col-12 my-auto">                    
+                    <h1 class="display-4 d-none d-md-block"> {{blog.title}} </h1>
+                    <h3 class="d-md-none"> {{blog.title}} </h3>
+                    <h5  class=" blog-hero-caption"> {{blog.heroimg.caption}} </h5>                    
+                </div>
             </div>
         </div>
-        <div v-for="(block, i) in blog.blocks" :key="i" class="row w-100 p-1 m-0">
-            <div v-if="i / 2 != 0" class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row" :id="block.name">                
-                <div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-left">
-                    <span class="badge badge-pill px-3 py-1 bg-warning"> {{block.name}} </span>
-                    <h1 class="display-4 my-2"> {{block.heading}} </h1>
-                    <h1> {{block.subheading}} </h1>
-                    <p class="h5 my-2"> {{block.content}} </p>
-                </div>
-                <div  class="col-12 col-md-6 m-auto">
-                    <img :src="block.image" :alt="block.heading" class="pimg img-fluid my-auto rounded shadow-lg">
+        <div class="row w-100 m-0 border-bottom p-3 bg-light sticky-top justify-content-center text-center">
+            <nav class="navbar nav  blog-links px-3 text-center">
+                <a v-for="(block, i) in blog.blocks" :key="i" class=" px-3 text-dark" :href="'#' + block.name" > {{block.name}} </a>
+            </nav>
+        </div>
+        <div v-for="(block, b_i) in blog.blocks" :key="b_i" class="row blog-content w-100 m-0 p-5" :id="block.name">
+            <div class="col-11 col-md-6 p-2 p-md-4 d-flex blog-content-txt">
+                <div class="m-auto col-12">
+                    <span class="badge badge-pill bg-theme"> {{block.name}} </span>
+                    <h1> {{block.heading}} </h1>
+                    <p class="lead"> {{block.subheading}} </p>
+                    <p> {{block.content}} </p>
                 </div>
             </div>
-            <div v-if="i / 2 == 0" class="row p-0 m-0 w-100 hrow border-bottom d-flex flex-row flex-md-row-reverse" :id="block.name">
-                <div data-aos="fade-up" class="col-md-6 col-12 m-auto text-center text-md-right">
-                    <span class="badge badge-pill px-3 py-1 bg-warning"> {{block.name}} </span>
-                    <h1 class="display-4 my-2"> {{block.heading}} </h1>
-                    <h3> {{block.subheading}} </h3>
-                    <p class="h5  border-top py-2 font-weight-bold my-2"> {{block.content}} </p>
-                </div>
-                <div data-aos="fade-down" class="col-12 col-md-6 m-auto">
-                    <img :src="block.image" :alt="block.heading" class="pimg img-fluid my-auto rounded shadow-lg">
-                </div>
+            <div class="col-11 col-md-6 d-flex flex-column text-center blog-content-img">
+                <img :src="block.image" class="m-auto img-fluid" />
+                <p  class=" my-2 blog-hero-caption"> <small> {{block.caption}} </small> </p>                    
             </div>
         </div>
     </div>
@@ -69,6 +62,8 @@ export default {
 
             var id = this.$route.params.blogid
 
+            console.log(id)
+
             api.getBlog(id)
             .then(res => {
 
@@ -78,6 +73,7 @@ export default {
                     this.loaded.blog = true
                     this.blog = res.data.blog
                     this.title = this.blog.title
+                    console.log(this.blog)
                 }
 
             })
@@ -92,5 +88,10 @@ export default {
 </script>
 
 <style>
+
+div
+{
+    scroll-behavior: smooth;
+}
 
 </style>

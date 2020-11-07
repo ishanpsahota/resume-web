@@ -9,7 +9,8 @@
 		<!-- </div>		 --> 
 		<div class="row p-0 m-0 fullsize w-100 " >
 			<router-view />
-		</div>
+			
+		</div>		
 	</div>
 </template>
 
@@ -21,6 +22,7 @@ AOS.init();
 
 import 'pattern.css/dist/pattern.css'
 
+
 import Nav from './components/Nav'
 
 export default {
@@ -31,7 +33,8 @@ export default {
 	data() {
 		return {
 		
-			mode: localStorage.getItem('mode')
+			mode: localStorage.getItem('mode'),
+		
 
 		}
 	},
