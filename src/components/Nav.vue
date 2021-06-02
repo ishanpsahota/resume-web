@@ -10,7 +10,7 @@
             <div class="collapse mx-auto  justify-content-end navbar-collapse " id="collapseNav">
                 <!-- <a href="/login" :class="getState('login') + ' mx-1 '"> Log In </a> -->
                 <a href="/#projects" :class=" ' mx-2 text-dark ' "> Projects </a>
-                <a href="/blogs" :class="getState('blogs') + '  mx-2 '"> Blogs  </a>
+                <a href="https://laazzzyyyydev.netlify.app" :class="getState('blogs') + '  mx-2 '"> Laazzzyyyy.dev  </a>
                 
                 <!-- <a v-if="loggedIn" @click="logout()" :class="getState('logout') + '  mx-1 '"> Log Out  </a> -->
                 <a v-if="loggedIn" href="/edit" :class="getState('edit') + '  mx-2 '"> Edit  </a>
